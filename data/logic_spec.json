@@ -1,0 +1,3646 @@
+{
+ "meta": {
+  "id": "ram-acute-cough",
+  "version": "1.0.0",
+  "final_stage": 5,
+  "title": {
+   "en": "Respiratory-Ailment-Manager — Acute cough pathway",
+   "ar": "مدير أمراض الجهاز التنفسي — مسار السعال الحاد"
+  },
+  "languages": [
+   "en",
+   "ar"
+  ],
+  "conflict_strategy": "referral_preempts_management",
+  "stages": [
+   {
+    "n": 1,
+    "key": "who",
+    "letter": "W",
+    "label": {
+     "en": "Who is the patient?",
+     "ar": "من هو المريض؟"
+    }
+   },
+   {
+    "n": 2,
+    "key": "what",
+    "letter": "W",
+    "label": {
+     "en": "What are the symptoms?",
+     "ar": "ما الأعراض؟"
+    }
+   },
+   {
+    "n": 3,
+    "key": "how",
+    "letter": "H",
+    "label": {
+     "en": "How long?",
+     "ar": "منذ متى؟"
+    }
+   },
+   {
+    "n": 4,
+    "key": "action",
+    "letter": "A",
+    "label": {
+     "en": "Action taken",
+     "ar": "الإجراءات المتخذة"
+    }
+   },
+   {
+    "n": 5,
+    "key": "meds",
+    "letter": "M",
+    "label": {
+     "en": "Medicines and conditions",
+     "ar": "الأدوية والحالات المرضية"
+    }
+   }
+  ],
+  "insufficient_data_output": "REC-900",
+  "source": "SRC-01 Clinical Management Protocol (uploaded); requirements SRC-02",
+  "status": "DRAFT — awaiting clinical sign-off (G2)",
+  "changelog": [
+   {
+    "version": "1.0.0",
+    "date": "2026-11-12",
+    "change": "Initial acute-cough pathway from SRC-01 and SRC-02."
+   }
+  ]
+ },
+ "inputs": [
+  {
+   "id": "age_band",
+   "stage": 1,
+   "type": "enum",
+   "required": true,
+   "label": {
+    "en": "Patient age",
+    "ar": "عمر المريض"
+   },
+   "options": [
+    {
+     "value": "lt1m",
+     "label": {
+      "en": "Under 1 month",
+      "ar": "أقل من شهر"
+     }
+    },
+    {
+     "value": "1m_1y",
+     "label": {
+      "en": "1 month to under 1 year",
+      "ar": "من شهر إلى أقل من سنة"
+     }
+    },
+    {
+     "value": "1_6",
+     "label": {
+      "en": "1–6 years",
+      "ar": "1–6 سنوات"
+     }
+    },
+    {
+     "value": "7_12",
+     "label": {
+      "en": "7–12 years",
+      "ar": "7–12 سنة"
+     }
+    },
+    {
+     "value": "13_17",
+     "label": {
+      "en": "13–17 years",
+      "ar": "13–17 سنة"
+     }
+    },
+    {
+     "value": "18_40",
+     "label": {
+      "en": "18–40 years",
+      "ar": "18–40 سنة"
+     }
+    },
+    {
+     "value": "41_64",
+     "label": {
+      "en": "41–64 years",
+      "ar": "41–64 سنة"
+     }
+    },
+    {
+     "value": "ge65",
+     "label": {
+      "en": "65 years or older",
+      "ar": "65 سنة فأكثر"
+     }
+    }
+   ]
+  },
+  {
+   "id": "sex",
+   "stage": 1,
+   "type": "enum",
+   "required": true,
+   "label": {
+    "en": "Sex",
+    "ar": "الجنس"
+   },
+   "options": [
+    {
+     "value": "male",
+     "label": {
+      "en": "Male",
+      "ar": "ذكر"
+     }
+    },
+    {
+     "value": "female",
+     "label": {
+      "en": "Female",
+      "ar": "أنثى"
+     }
+    }
+   ]
+  },
+  {
+   "id": "pregnant",
+   "stage": 1,
+   "type": "boolean",
+   "required": true,
+   "label": {
+    "en": "Is the patient pregnant?",
+    "ar": "هل المريضة حامل؟"
+   },
+   "ask_if": {
+    "all": [
+     {
+      "var": "sex",
+      "op": "==",
+      "value": "female"
+     },
+     {
+      "var": "age_band",
+      "op": "in",
+      "value": [
+       "13_17",
+       "18_40",
+       "41_64"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "id": "trimester",
+   "stage": 1,
+   "type": "enum",
+   "required": true,
+   "label": {
+    "en": "Trimester",
+    "ar": "الثلث من الحمل"
+   },
+   "ask_if": {
+    "var": "pregnant",
+    "op": "==",
+    "value": true
+   },
+   "options": [
+    {
+     "value": "t1",
+     "label": {
+      "en": "First (weeks 1–12)",
+      "ar": "الأول (الأسابيع 1–12)"
+     }
+    },
+    {
+     "value": "t2",
+     "label": {
+      "en": "Second (weeks 13–27)",
+      "ar": "الثاني (الأسابيع 13–27)"
+     }
+    },
+    {
+     "value": "t3",
+     "label": {
+      "en": "Third (week 28 onwards)",
+      "ar": "الثالث (من الأسبوع 28)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "breastfeeding",
+   "stage": 1,
+   "type": "boolean",
+   "required": true,
+   "label": {
+    "en": "Is the patient breastfeeding?",
+    "ar": "هل المريضة مرضع؟"
+   },
+   "ask_if": {
+    "all": [
+     {
+      "var": "sex",
+      "op": "==",
+      "value": "female"
+     },
+     {
+      "var": "age_band",
+      "op": "in",
+      "value": [
+       "13_17",
+       "18_40",
+       "41_64"
+      ]
+     },
+     {
+      "var": "pregnant",
+      "op": "==",
+      "value": false
+     }
+    ]
+   }
+  },
+  {
+   "id": "smoker",
+   "stage": 1,
+   "type": "boolean",
+   "required": true,
+   "label": {
+    "en": "Does the patient smoke?",
+    "ar": "هل المريض مدخّن؟"
+   },
+   "ask_if": {
+    "var": "age_band",
+    "op": "in",
+    "value": [
+     "13_17",
+     "18_40",
+     "41_64",
+     "ge65"
+    ]
+   }
+  },
+  {
+   "id": "cough_type",
+   "stage": 2,
+   "type": "enum",
+   "required": true,
+   "label": {
+    "en": "Type of cough",
+    "ar": "نوع السعال"
+   },
+   "help": {
+    "en": "If the patient brings up no sputum but can feel it in the chest, choose chesty.",
+    "ar": "إذا لم يُخرج المريض بلغماً لكنه يشعر به في صدره، اختر السعال المنتج للبلغم."
+   },
+   "options": [
+    {
+     "value": "dry",
+     "label": {
+      "en": "Dry, tight or tickly (no sputum)",
+      "ar": "جاف أو مُهيِّج (بدون بلغم)"
+     }
+    },
+    {
+     "value": "chesty",
+     "label": {
+      "en": "Chesty (productive, or felt in the chest)",
+      "ar": "منتج للبلغم (أو يُشعَر به في الصدر)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "sputum",
+   "stage": 2,
+   "type": "set",
+   "required": true,
+   "label": {
+    "en": "Sputum: select everything that applies",
+    "ar": "البلغم: اختر كل ما ينطبق"
+   },
+   "ask_if": {
+    "var": "cough_type",
+    "op": "==",
+    "value": "chesty"
+   },
+   "options": [
+    {
+     "value": "clear",
+     "label": {
+      "en": "Clear or white",
+      "ar": "شفاف أو أبيض"
+     }
+    },
+    {
+     "value": "coloured",
+     "label": {
+      "en": "Yellow, green or brown",
+      "ar": "أصفر أو أخضر أو بني"
+     }
+    },
+    {
+     "value": "rust",
+     "label": {
+      "en": "Rust-coloured blood",
+      "ar": "دم بلون الصدأ"
+     }
+    },
+    {
+     "value": "pink",
+     "label": {
+      "en": "Pink-tinged blood",
+      "ar": "دم وردي اللون"
+     }
+    },
+    {
+     "value": "darkred",
+     "label": {
+      "en": "Dark red blood",
+      "ar": "دم أحمر داكن"
+     }
+    },
+    {
+     "value": "bright_streak",
+     "label": {
+      "en": "A single episode of bright red blood",
+      "ar": "نوبة واحدة من دم أحمر فاتح"
+     }
+    },
+    {
+     "value": "frothy",
+     "label": {
+      "en": "Thin and frothy",
+      "ar": "رقيق ورغوي"
+     }
+    },
+    {
+     "value": "foul",
+     "label": {
+      "en": "Offensive or foul-smelling",
+      "ar": "كريه الرائحة"
+     }
+    }
+   ]
+  },
+  {
+   "id": "features",
+   "stage": 2,
+   "type": "set",
+   "required": true,
+   "exclusive": "none",
+   "label": {
+    "en": "Other symptoms: select everything that applies",
+    "ar": "أعراض أخرى: اختر كل ما ينطبق"
+   },
+   "options": [
+    {
+     "value": "cold_symptoms",
+     "label": {
+      "en": "Sudden onset with fever or cold symptoms",
+      "ar": "بداية مفاجئة مع حمى أو أعراض زكام"
+     }
+    },
+    {
+     "value": "postnasal",
+     "label": {
+      "en": "Runny or blocked nose, throat clearing, itchy throat",
+      "ar": "سيلان أو انسداد الأنف، تنحنح، حكة في الحلق"
+     }
+    },
+    {
+     "value": "triggered",
+     "label": {
+      "en": "Comes and goes with triggers (allergens, exercise, cold air) or seasons",
+      "ar": "يأتي ويذهب مع المحفزات (مسببات الحساسية، الرياضة، الهواء البارد) أو المواسم"
+     }
+    },
+    {
+     "value": "worse_night",
+     "label": {
+      "en": "Worse at night",
+      "ar": "يزداد ليلاً"
+     }
+    },
+    {
+     "value": "breathless_mild",
+     "label": {
+      "en": "Mild breathlessness",
+      "ar": "ضيق نفس خفيف"
+     }
+    },
+    {
+     "value": "fatigue",
+     "label": {
+      "en": "Fatigue",
+      "ar": "تعب وإرهاق"
+     }
+    },
+    {
+     "value": "barking_stridor",
+     "label": {
+      "en": "Barking, seal-like cough or noisy breathing (stridor)",
+      "ar": "سعال نباحي أو صوت صرير عند التنفس"
+     }
+    },
+    {
+     "value": "confusion",
+     "label": {
+      "en": "New confusion",
+      "ar": "تشوّش ذهني جديد"
+     }
+    },
+    {
+     "value": "none",
+     "label": {
+      "en": "None of these",
+      "ar": "لا شيء مما سبق"
+     }
+    }
+   ]
+  },
+  {
+   "id": "family_history_atopy",
+   "stage": 2,
+   "type": "boolean",
+   "required": true,
+   "label": {
+    "en": "Family history of asthma or allergy?",
+    "ar": "هل يوجد تاريخ عائلي للربو أو الحساسية؟"
+   },
+   "ask_if": {
+    "var": "features",
+    "op": "has",
+    "value": "triggered"
+   }
+  },
+  {
+   "id": "red_flags",
+   "stage": 2,
+   "type": "set",
+   "required": true,
+   "exclusive": "none",
+   "red_flag": true,
+   "label": {
+    "en": "Red flags: ask about every item",
+    "ar": "علامات الخطر: اسأل عن كل بند"
+   },
+   "options": [
+    {
+     "value": "chest_pain",
+     "label": {
+      "en": "Chest pain",
+      "ar": "ألم في الصدر"
+     }
+    },
+    {
+     "value": "haemoptysis",
+     "label": {
+      "en": "Coughing up blood",
+      "ar": "سعال مصحوب بالدم"
+     }
+    },
+    {
+     "value": "pain_inspiration",
+     "label": {
+      "en": "Pain on breathing in",
+      "ar": "ألم عند الشهيق"
+     }
+    },
+    {
+     "value": "severe_dyspnoea",
+     "label": {
+      "en": "Severe shortness of breath",
+      "ar": "ضيق نفس شديد"
+     }
+    },
+    {
+     "value": "wheezing",
+     "label": {
+      "en": "Prominent wheezing",
+      "ar": "أزيز واضح في الصدر"
+     }
+    },
+    {
+     "value": "anorexia",
+     "label": {
+      "en": "Unexplained loss of appetite",
+      "ar": "فقدان شهية غير مبرر"
+     }
+    },
+    {
+     "value": "weight_loss",
+     "label": {
+      "en": "Unexplained or significant weight loss",
+      "ar": "فقدان وزن غير مبرر أو ملحوظ"
+     }
+    },
+    {
+     "value": "debilitating",
+     "label": {
+      "en": "Debilitating symptoms (unable to carry on normal activity)",
+      "ar": "أعراض منهكة (لا يستطيع ممارسة نشاطه الطبيعي)"
+     }
+    },
+    {
+     "value": "recurrent",
+     "label": {
+      "en": "Recurring episodes of cough",
+      "ar": "نوبات سعال متكررة"
+     }
+    },
+    {
+     "value": "none",
+     "label": {
+      "en": "None of these",
+      "ar": "لا شيء مما سبق"
+     }
+    }
+   ]
+  },
+  {
+   "id": "nocturnal_persistent",
+   "stage": 2,
+   "type": "boolean",
+   "required": true,
+   "label": {
+    "en": "Does the child have a persistent night-time cough?",
+    "ar": "هل لدى الطفل سعال ليلي مستمر؟"
+   },
+   "ask_if": {
+    "var": "age_band",
+    "op": "in",
+    "value": [
+     "1m_1y",
+     "1_6",
+     "7_12",
+     "13_17"
+    ]
+   }
+  },
+  {
+   "id": "duration",
+   "stage": 3,
+   "type": "enum",
+   "required": true,
+   "label": {
+    "en": "How long has the cough been present?",
+    "ar": "منذ متى والسعال موجود؟"
+   },
+   "options": [
+    {
+     "value": "lt1w",
+     "label": {
+      "en": "Less than 1 week",
+      "ar": "أقل من أسبوع"
+     }
+    },
+    {
+     "value": "1to3w",
+     "label": {
+      "en": "1 week to less than 3 weeks",
+      "ar": "من أسبوع إلى أقل من 3 أسابيع"
+     }
+    },
+    {
+     "value": "ge3w",
+     "label": {
+      "en": "3 weeks or more",
+      "ar": "3 أسابيع أو أكثر"
+     }
+    }
+   ]
+  },
+  {
+   "id": "prior_action",
+   "stage": 4,
+   "type": "set",
+   "required": true,
+   "exclusive": "none",
+   "label": {
+    "en": "What has the patient already tried?",
+    "ar": "ماذا جرّب المريض حتى الآن؟"
+   },
+   "options": [
+    {
+     "value": "honey_demulcent",
+     "label": {
+      "en": "Honey or soothing drinks",
+      "ar": "العسل أو المشروبات الملطّفة"
+     }
+    },
+    {
+     "value": "steam",
+     "label": {
+      "en": "Steam inhalation",
+      "ar": "استنشاق البخار"
+     }
+    },
+    {
+     "value": "otc_medicine",
+     "label": {
+      "en": "A cough medicine",
+      "ar": "دواء للسعال"
+     }
+    },
+    {
+     "value": "other",
+     "label": {
+      "en": "Something else",
+      "ar": "شيء آخر"
+     }
+    },
+    {
+     "value": "none",
+     "label": {
+      "en": "Nothing yet",
+      "ar": "لا شيء بعد"
+     }
+    }
+   ]
+  },
+  {
+   "id": "selfcare_effect",
+   "stage": 4,
+   "type": "enum",
+   "required": true,
+   "label": {
+    "en": "Effect of the self-care measures",
+    "ar": "تأثير إجراءات الرعاية الذاتية"
+   },
+   "ask_if": {
+    "var": "prior_action",
+    "op": "has_any",
+    "value": [
+     "honey_demulcent",
+     "steam",
+     "other"
+    ]
+   },
+   "options": [
+    {
+     "value": "improved",
+     "label": {
+      "en": "Improved",
+      "ar": "تحسّن"
+     }
+    },
+    {
+     "value": "no_change",
+     "label": {
+      "en": "No effect",
+      "ar": "لا تأثير"
+     }
+    },
+    {
+     "value": "worse",
+     "label": {
+      "en": "Worse",
+      "ar": "ساءت الحالة"
+     }
+    }
+   ]
+  },
+  {
+   "id": "prior_medicine",
+   "stage": 4,
+   "type": "enum",
+   "required": true,
+   "label": {
+    "en": "Which cough medicine?",
+    "ar": "أي دواء للسعال؟"
+   },
+   "ask_if": {
+    "var": "prior_action",
+    "op": "has",
+    "value": "otc_medicine"
+   },
+   "options": [
+    {
+     "value": "guaifenesin",
+     "label": {
+      "en": "Guaifenesin",
+      "ar": "غوايفينيسين"
+     }
+    },
+    {
+     "value": "dextromethorphan",
+     "label": {
+      "en": "Dextromethorphan",
+      "ar": "ديكستروميثورفان"
+     }
+    },
+    {
+     "value": "diphenhydramine",
+     "label": {
+      "en": "Diphenhydramine",
+      "ar": "ديفينهيدرامين"
+     }
+    },
+    {
+     "value": "simple_linctus",
+     "label": {
+      "en": "Simple linctus",
+      "ar": "الشراب الملطّف البسيط (Simple linctus)"
+     }
+    },
+    {
+     "value": "combination",
+     "label": {
+      "en": "A combination (multi-ingredient) product",
+      "ar": "مستحضر مركّب (متعدد المكونات)"
+     }
+    },
+    {
+     "value": "other_med",
+     "label": {
+      "en": "Another medicine",
+      "ar": "دواء آخر"
+     }
+    }
+   ]
+  },
+  {
+   "id": "medicine_effect",
+   "stage": 4,
+   "type": "enum",
+   "required": true,
+   "label": {
+    "en": "Effect of the medicine",
+    "ar": "تأثير الدواء"
+   },
+   "ask_if": {
+    "var": "prior_action",
+    "op": "has",
+    "value": "otc_medicine"
+   },
+   "options": [
+    {
+     "value": "improved",
+     "label": {
+      "en": "Improved",
+      "ar": "تحسّن"
+     }
+    },
+    {
+     "value": "no_change",
+     "label": {
+      "en": "No effect",
+      "ar": "لا تأثير"
+     }
+    },
+    {
+     "value": "worse",
+     "label": {
+      "en": "Worse",
+      "ar": "ساءت الحالة"
+     }
+    }
+   ]
+  },
+  {
+   "id": "dose_correct",
+   "stage": 4,
+   "type": "enum",
+   "required": true,
+   "label": {
+    "en": "Was the dose correct for the patient's age?",
+    "ar": "هل كانت الجرعة صحيحة لعمر المريض؟"
+   },
+   "help": {
+    "en": "Compare with the dose shown for this medicine.",
+    "ar": "قارن مع الجرعة المعروضة لهذا الدواء."
+   },
+   "ask_if": {
+    "var": "prior_medicine",
+    "op": "in",
+    "value": [
+     "guaifenesin",
+     "dextromethorphan",
+     "diphenhydramine",
+     "simple_linctus"
+    ]
+   },
+   "options": [
+    {
+     "value": "yes",
+     "label": {
+      "en": "Yes",
+      "ar": "نعم"
+     }
+    },
+    {
+     "value": "no",
+     "label": {
+      "en": "No",
+      "ar": "لا"
+     }
+    },
+    {
+     "value": "unsure",
+     "label": {
+      "en": "Not sure",
+      "ar": "غير متأكد"
+     }
+    }
+   ]
+  },
+  {
+   "id": "use_days",
+   "stage": 4,
+   "type": "enum",
+   "required": true,
+   "label": {
+    "en": "How long was it used?",
+    "ar": "كم مدة استخدامه؟"
+   },
+   "ask_if": {
+    "var": "prior_medicine",
+    "op": "in",
+    "value": [
+     "guaifenesin",
+     "dextromethorphan",
+     "diphenhydramine",
+     "simple_linctus"
+    ]
+   },
+   "options": [
+    {
+     "value": "lt2d",
+     "label": {
+      "en": "Less than 2 days",
+      "ar": "أقل من يومين"
+     }
+    },
+    {
+     "value": "2to5d",
+     "label": {
+      "en": "2–5 days",
+      "ar": "2–5 أيام"
+     }
+    },
+    {
+     "value": "gt5d",
+     "label": {
+      "en": "More than 5 days",
+      "ar": "أكثر من 5 أيام"
+     }
+    }
+   ]
+  },
+  {
+   "id": "adherent",
+   "stage": 4,
+   "type": "boolean",
+   "required": true,
+   "label": {
+    "en": "Was it taken regularly as directed?",
+    "ar": "هل أُخذ بانتظام حسب التعليمات؟"
+   },
+   "ask_if": {
+    "var": "prior_medicine",
+    "op": "in",
+    "value": [
+     "guaifenesin",
+     "dextromethorphan",
+     "diphenhydramine",
+     "simple_linctus"
+    ]
+   }
+  },
+  {
+   "id": "conditions",
+   "stage": 5,
+   "type": "set",
+   "required": true,
+   "exclusive": "none",
+   "label": {
+    "en": "Medical conditions",
+    "ar": "الحالات المرضية"
+   },
+   "options": [
+    {
+     "value": "asthma",
+     "label": {
+      "en": "Asthma",
+      "ar": "الربو"
+     }
+    },
+    {
+     "value": "copd",
+     "label": {
+      "en": "COPD",
+      "ar": "الانسداد الرئوي المزمن (COPD)"
+     }
+    },
+    {
+     "value": "diabetes_insulin",
+     "label": {
+      "en": "Diabetes treated with insulin",
+      "ar": "السكري المعالج بالأنسولين"
+     }
+    },
+    {
+     "value": "glaucoma",
+     "label": {
+      "en": "Glaucoma",
+      "ar": "الزرق (الماء الأزرق)"
+     }
+    },
+    {
+     "value": "prostate",
+     "label": {
+      "en": "Enlarged prostate",
+      "ar": "تضخم البروستاتا"
+     }
+    },
+    {
+     "value": "none",
+     "label": {
+      "en": "None of these",
+      "ar": "لا شيء مما سبق"
+     }
+    }
+   ]
+  },
+  {
+   "id": "copd_worse",
+   "stage": 5,
+   "type": "boolean",
+   "required": true,
+   "label": {
+    "en": "Is the COPD acutely worse (more breathless, less able to do daily activities)?",
+    "ar": "هل تفاقم الانسداد الرئوي حاداً (ضيق نفس أشد وقدرة أقل على النشاط اليومي)؟"
+   },
+   "ask_if": {
+    "var": "conditions",
+    "op": "has",
+    "value": "copd"
+   }
+  },
+  {
+   "id": "medicines",
+   "stage": 5,
+   "type": "set",
+   "required": true,
+   "exclusive": "none",
+   "label": {
+    "en": "Current medicines",
+    "ar": "الأدوية الحالية"
+   },
+   "options": [
+    {
+     "value": "acei",
+     "label": {
+      "en": "ACE inhibitor (e.g. captopril, enalapril, lisinopril)",
+      "ar": "مثبط الإنزيم المحول للأنجيوتنسين (مثل كابتوبريل، إنالابريل، ليسينوبريل)"
+     }
+    },
+    {
+     "value": "maoi",
+     "label": {
+      "en": "MAOI incl. moclobemide — now or stopped within 14 days",
+      "ar": "مثبط أوكسيداز أحادي الأمين بما فيها موكلوبيميد — حالياً أو أوقف خلال 14 يوماً"
+     }
+    },
+    {
+     "value": "ssri",
+     "label": {
+      "en": "SSRI antidepressant",
+      "ar": "مضاد اكتئاب من نوع SSRI"
+     }
+    },
+    {
+     "value": "tramadol",
+     "label": {
+      "en": "Tramadol",
+      "ar": "ترامادول"
+     }
+    },
+    {
+     "value": "opioid",
+     "label": {
+      "en": "Other opioid painkiller",
+      "ar": "مسكن أفيوني آخر"
+     }
+    },
+    {
+     "value": "sedative",
+     "label": {
+      "en": "Anxiolytic, hypnotic or other sedative",
+      "ar": "مضاد قلق أو منوّم أو مهدئ آخر"
+     }
+    },
+    {
+     "value": "tca",
+     "label": {
+      "en": "Tricyclic antidepressant",
+      "ar": "مضاد اكتئاب ثلاثي الحلقات"
+     }
+    },
+    {
+     "value": "other_antidepressant",
+     "label": {
+      "en": "Another antidepressant",
+      "ar": "مضاد اكتئاب آخر"
+     }
+    },
+    {
+     "value": "cough_cause_other",
+     "label": {
+      "en": "NSAID, sitagliptin, calcium-channel blocker or beta-blocker",
+      "ar": "مضاد التهاب غير ستيرويدي، سيتاغليبتين، حاصر قنوات الكالسيوم أو حاصر بيتا"
+     }
+    },
+    {
+     "value": "none",
+     "label": {
+      "en": "None of these",
+      "ar": "لا شيء مما سبق"
+     }
+    }
+   ]
+  }
+ ],
+ "rules": [
+  {
+   "id": "R-001",
+   "stage": 1,
+   "group": "referral",
+   "priority": 1,
+   "statement": "Age under 1 month → refer to physician",
+   "when": {
+    "var": "age_band",
+    "op": "==",
+    "value": "lt1m"
+   },
+   "then": [
+    "REC-109"
+   ],
+   "basis": "LOCAL-POLICY",
+   "evidence_ids": [],
+   "signoff_note": "GAP-11: neonates not addressed by the protocol."
+  },
+  {
+   "id": "R-002",
+   "stage": 2,
+   "group": "referral",
+   "priority": 2,
+   "statement": "Chest pain, haemoptysis, pain on inspiration, severe dyspnoea or prominent wheezing → urgent same-day referral",
+   "when": {
+    "var": "red_flags",
+    "op": "has_any",
+    "value": [
+     "chest_pain",
+     "haemoptysis",
+     "pain_inspiration",
+     "severe_dyspnoea",
+     "wheezing"
+    ]
+   },
+   "then": [
+    "REC-101"
+   ],
+   "basis": "EVIDENCE",
+   "evidence_ids": [
+    "EV-005",
+    "EV-038"
+   ]
+  },
+  {
+   "id": "R-003",
+   "stage": 2,
+   "group": "referral",
+   "priority": 3,
+   "statement": "Blood-stained sputum (rust, pink, dark red) → immediate referral",
+   "when": {
+    "var": "sputum",
+    "op": "has_any",
+    "value": [
+     "rust",
+     "pink",
+     "darkred"
+    ]
+   },
+   "then": [
+    "REC-102"
+   ],
+   "basis": "EVIDENCE",
+   "evidence_ids": [
+    "EV-010",
+    "EV-011"
+   ]
+  },
+  {
+   "id": "R-004",
+   "stage": 2,
+   "group": "referral",
+   "priority": 4,
+   "statement": "Debilitating symptoms → urgent same-day referral (applied at all ages)",
+   "when": {
+    "var": "red_flags",
+    "op": "has",
+    "value": "debilitating"
+   },
+   "then": [
+    "REC-103"
+   ],
+   "basis": "EVIDENCE",
+   "evidence_ids": [
+    "EV-009",
+    "EV-010"
+   ],
+   "signoff_note": "CONF-02: red-flag table limits this to older adults; source flowchart does not. Applied to all ages (more conservative)."
+  },
+  {
+   "id": "R-005",
+   "stage": 2,
+   "group": "referral",
+   "priority": 5,
+   "statement": "Age ≥65 with new confusion → urgent referral (possible pneumonia)",
+   "when": {
+    "all": [
+     {
+      "var": "age_band",
+      "op": "==",
+      "value": "ge65"
+     },
+     {
+      "var": "features",
+      "op": "has",
+      "value": "confusion"
+     }
+    ]
+   },
+   "then": [
+    "REC-104"
+   ],
+   "basis": "EVIDENCE",
+   "evidence_ids": [
+    "EV-014"
+   ],
+   "signoff_note": "Referral derived from CAP description; older adult = ≥65 (GAP-08)."
+  },
+  {
+   "id": "R-006",
+   "stage": 2,
+   "group": "referral",
+   "priority": 6,
+   "statement": "Age >40 with ≥2 lung-cancer signs, or ≥1 sign in a smoker → urgent referral",
+   "when": {
+    "all": [
+     {
+      "var": "age_band",
+      "op": "in",
+      "value": [
+       "41_64",
+       "ge65"
+      ]
+     },
+     {
+      "any": [
+       {
+        "count": [
+         {
+          "any": [
+           {
+            "var": "red_flags",
+            "op": "has",
+            "value": "haemoptysis"
+           },
+           {
+            "var": "sputum",
+            "op": "has_any",
+            "value": [
+             "rust",
+             "pink",
+             "darkred"
+            ]
+           }
+          ]
+         },
+         {
+          "any": [
+           {
+            "var": "red_flags",
+            "op": "has",
+            "value": "severe_dyspnoea"
+           },
+           {
+            "var": "features",
+            "op": "has",
+            "value": "breathless_mild"
+           }
+          ]
+         },
+         {
+          "var": "red_flags",
+          "op": "has",
+          "value": "chest_pain"
+         },
+         {
+          "var": "red_flags",
+          "op": "has",
+          "value": "anorexia"
+         },
+         {
+          "var": "red_flags",
+          "op": "has",
+          "value": "weight_loss"
+         },
+         {
+          "var": "features",
+          "op": "has",
+          "value": "fatigue"
+         }
+        ],
+        "op": ">=",
+        "value": 2
+       },
+       {
+        "all": [
+         {
+          "var": "smoker",
+          "op": "==",
+          "value": true
+         },
+         {
+          "count": [
+           {
+            "any": [
+             {
+              "var": "red_flags",
+              "op": "has",
+              "value": "haemoptysis"
+             },
+             {
+              "var": "sputum",
+              "op": "has_any",
+              "value": [
+               "rust",
+               "pink",
+               "darkred"
+              ]
+             }
+            ]
+           },
+           {
+            "any": [
+             {
+              "var": "red_flags",
+              "op": "has",
+              "value": "severe_dyspnoea"
+             },
+             {
+              "var": "features",
+              "op": "has",
+              "value": "breathless_mild"
+             }
+            ]
+           },
+           {
+            "var": "red_flags",
+            "op": "has",
+            "value": "chest_pain"
+           },
+           {
+            "var": "red_flags",
+            "op": "has",
+            "value": "anorexia"
+           },
+           {
+            "var": "red_flags",
+            "op": "has",
+            "value": "weight_loss"
+           },
+           {
+            "var": "features",
+            "op": "has",
+            "value": "fatigue"
+           }
+          ],
+          "op": ">=",
+          "value": 1
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "then": [
+    "REC-105"
+   ],
+   "basis": "EVIDENCE",
+   "evidence_ids": [
+    "EV-013"
+   ]
+  },
+  {
+   "id": "R-007",
+   "stage": 2,
+   "group": "referral",
+   "priority": 7,
+   "statement": "Chesty cough in an older adult (≥65) → urgent referral (source flowchart)",
+   "when": {
+    "all": [
+     {
+      "var": "cough_type",
+      "op": "==",
+      "value": "chesty"
+     },
+     {
+      "var": "age_band",
+      "op": "==",
+      "value": "ge65"
+     }
+    ]
+   },
+   "then": [
+    "REC-106"
+   ],
+   "basis": "EVIDENCE",
+   "evidence_ids": [
+    "EV-010"
+   ],
+   "signoff_note": "CONF-02 / GAP-08: flowchart branch \"Debilitating / Older Adult\"; older adult = ≥65 (local policy)."
+  },
+  {
+   "id": "R-008",
+   "stage": 2,
+   "group": "referral",
+   "priority": 8,
+   "statement": "Thin, frothy sputum → same-day referral (possible heart failure)",
+   "when": {
+    "var": "sputum",
+    "op": "has",
+    "value": "frothy"
+   },
+   "then": [
+    "REC-107"
+   ],
+   "basis": "LOCAL-POLICY",
+   "evidence_ids": [
+    "EV-012",
+    "EV-041"
+   ],
+   "signoff_note": "GAP-15: not in the red-flag table; referral derived from differential matrix."
+  },
+  {
+   "id": "R-009",
+   "stage": 2,
+   "group": "referral",
+   "priority": 9,
+   "statement": "Barking cough or stridor → same-day referral",
+   "when": {
+    "var": "features",
+    "op": "has",
+    "value": "barking_stridor"
+   },
+   "then": [
+    "REC-108"
+   ],
+   "basis": "EXPERT-CONSENSUS",
+   "evidence_ids": [
+    "EV-020"
+   ],
+   "signoff_note": "GAP-12: croup described but no referral directive in the protocol."
+  },
+  {
+   "id": "R-010",
+   "stage": 2,
+   "group": "referral",
+   "priority": 20,
+   "statement": "Recurring cough episodes → refer as soon as practicable",
+   "when": {
+    "var": "red_flags",
+    "op": "has",
+    "value": "recurrent"
+   },
+   "then": [
+    "REC-112"
+   ],
+   "basis": "EVIDENCE",
+   "evidence_ids": [
+    "EV-006"
+   ]
+  },
+  {
+   "id": "R-011",
+   "stage": 2,
+   "group": "referral",
+   "priority": 21,
+   "statement": "Unexplained anorexia or weight loss → refer as soon as practicable",
+   "when": {
+    "var": "red_flags",
+    "op": "has_any",
+    "value": [
+     "anorexia",
+     "weight_loss"
+    ]
+   },
+   "then": [
+    "REC-113"
+   ],
+   "basis": "EVIDENCE",
+   "evidence_ids": [
+    "EV-008"
+   ]
+  },
+  {
+   "id": "R-012",
+   "stage": 2,
+   "group": "referral",
+   "priority": 22,
+   "statement": "Persistent nocturnal cough in a child → refer as soon as practicable",
+   "when": {
+    "var": "nocturnal_persistent",
+    "op": "==",
+    "value": true
+   },
+   "then": [
+    "REC-114"
+   ],
+   "basis": "EVIDENCE",
+   "evidence_ids": [
+    "EV-007"
+   ]
+  },
+  {
+   "id": "R-013",
+   "stage": 2,
+   "group": "referral",
+   "priority": 23,
+   "statement": "Triggered/seasonal cough with family history of asthma or allergy → refer",
+   "when": {
+    "all": [
+     {
+      "var": "features",
+      "op": "has",
+      "value": "triggered"
+     },
+     {
+      "var": "family_history_atopy",
+      "op": "==",
+      "value": true
+     }
+    ]
+   },
+   "then": [
+    "REC-115"
+   ],
+   "basis": "EVIDENCE",
+   "evidence_ids": [
+    "EV-010",
+    "EV-019"
+   ]
+  },
+  {
+   "id": "R-014",
+   "stage": 2,
+   "group": "referral",
+   "priority": 24,
+   "statement": "Foul-smelling sputum → refer as soon as practicable",
+   "when": {
+    "var": "sputum",
+    "op": "has",
+    "value": "foul"
+   },
+   "then": [
+    "REC-116"
+   ],
+   "basis": "LOCAL-POLICY",
+   "evidence_ids": [
+    "EV-012"
+   ],
+   "signoff_note": "GAP-15: not in the red-flag table; referral derived from differential matrix."
+  },
+  {
+   "id": "R-015",
+   "stage": 3,
+   "group": "referral",
+   "priority": 25,
+   "statement": "Cough for 3 weeks or more → refer as soon as practicable",
+   "when": {
+    "var": "duration",
+    "op": "==",
+    "value": "ge3w"
+   },
+   "then": [
+    "REC-111"
+   ],
+   "basis": "EVIDENCE",
+   "evidence_ids": [
+    "EV-001",
+    "EV-004",
+    "EV-006"
+   ]
+  },
+  {
+   "id": "R-016",
+   "stage": 4,
+   "group": "referral",
+   "priority": 26,
+   "statement": "Symptoms worse after self-care or medicine → refer",
+   "when": {
+    "any": [
+     {
+      "var": "medicine_effect",
+      "op": "==",
+      "value": "worse"
+     },
+     {
+      "var": "selfcare_effect",
+      "op": "==",
+      "value": "worse"
+     }
+    ]
+   },
+   "then": [
+    "REC-117"
+   ],
+   "basis": "LOCAL-POLICY",
+   "evidence_ids": [],
+   "signoff_note": "GAP-07: protocol gives no rule for assessing previous treatment."
+  },
+  {
+   "id": "R-017",
+   "stage": 5,
+   "group": "referral",
+   "priority": 27,
+   "statement": "COPD with acute worsening → GP referral",
+   "when": {
+    "all": [
+     {
+      "var": "conditions",
+      "op": "has",
+      "value": "copd"
+     },
+     {
+      "var": "copd_worse",
+      "op": "==",
+      "value": true
+     }
+    ]
+   },
+   "then": [
+    "REC-118"
+   ],
+   "basis": "EVIDENCE",
+   "evidence_ids": [
+    "EV-015"
+   ]
+  },
+  {
+   "id": "R-101",
+   "stage": 5,
+   "group": "management",
+   "priority": 101,
+   "statement": "Clear or coloured sputum → probably viral; antibiotics not routinely needed",
+   "when": {
+    "all": [
+     {
+      "var": "cough_type",
+      "op": "==",
+      "value": "chesty"
+     },
+     {
+      "var": "sputum",
+      "op": "has_any",
+      "value": [
+       "clear",
+       "coloured"
+      ]
+     }
+    ]
+   },
+   "then": [
+    "REC-204"
+   ],
+   "basis": "EVIDENCE",
+   "evidence_ids": [
+    "EV-011"
+   ]
+  },
+  {
+   "id": "R-102",
+   "stage": 5,
+   "group": "management",
+   "priority": 102,
+   "statement": "Single bright-red streak → non-serious, no referral needed",
+   "when": {
+    "all": [
+     {
+      "var": "cough_type",
+      "op": "==",
+      "value": "chesty"
+     },
+     {
+      "var": "sputum",
+      "op": "has",
+      "value": "bright_streak"
+     }
+    ]
+   },
+   "then": [
+    "REC-205"
+   ],
+   "basis": "EVIDENCE",
+   "evidence_ids": [
+    "EV-011"
+   ]
+  },
+  {
+   "id": "R-103",
+   "stage": 5,
+   "group": "management",
+   "priority": 103,
+   "statement": "Dry cough with sudden onset, fever or cold symptoms → likely viral URTI",
+   "when": {
+    "all": [
+     {
+      "var": "cough_type",
+      "op": "==",
+      "value": "dry"
+     },
+     {
+      "var": "features",
+      "op": "has",
+      "value": "cold_symptoms"
+     }
+    ]
+   },
+   "then": [
+    "REC-201"
+   ],
+   "basis": "EVIDENCE",
+   "evidence_ids": [
+    "EV-010",
+    "EV-017"
+   ]
+  },
+  {
+   "id": "R-104",
+   "stage": 5,
+   "group": "management",
+   "priority": 104,
+   "statement": "Dry cough with nasal symptoms/throat clearing → likely postnasal drip (UACS)",
+   "when": {
+    "all": [
+     {
+      "var": "cough_type",
+      "op": "==",
+      "value": "dry"
+     },
+     {
+      "var": "features",
+      "op": "has",
+      "value": "postnasal"
+     }
+    ]
+   },
+   "then": [
+    "REC-202"
+   ],
+   "basis": "EVIDENCE",
+   "evidence_ids": [
+    "EV-010",
+    "EV-018"
+   ]
+  },
+  {
+   "id": "R-105",
+   "stage": 5,
+   "group": "management",
+   "priority": 105,
+   "statement": "Triggered dry cough without family history → allergic pattern, treat and monitor",
+   "when": {
+    "all": [
+     {
+      "var": "cough_type",
+      "op": "==",
+      "value": "dry"
+     },
+     {
+      "var": "features",
+      "op": "has",
+      "value": "triggered"
+     },
+     {
+      "var": "family_history_atopy",
+      "op": "==",
+      "value": false
+     }
+    ]
+   },
+   "then": [
+    "REC-203"
+   ],
+   "basis": "EVIDENCE",
+   "evidence_ids": [
+    "EV-010",
+    "EV-019"
+   ]
+  },
+  {
+   "id": "R-201",
+   "stage": 5,
+   "group": "management",
+   "priority": 201,
+   "statement": "Always: natural course and safety-netting advice",
+   "when": {
+    "all": []
+   },
+   "then": [
+    "REC-210",
+    "REC-211"
+   ],
+   "basis": "EVIDENCE",
+   "evidence_ids": [
+    "EV-002",
+    "EV-004",
+    "EV-005"
+   ]
+  },
+  {
+   "id": "R-202",
+   "stage": 5,
+   "group": "management",
+   "priority": 202,
+   "statement": "Children aged 1–17 → honey advice",
+   "when": {
+    "var": "age_band",
+    "op": "in",
+    "value": [
+     "1_6",
+     "7_12",
+     "13_17"
+    ]
+   },
+   "then": [
+    "REC-212"
+   ],
+   "basis": "EVIDENCE",
+   "evidence_ids": [
+    "EV-025"
+   ],
+   "signoff_note": "GAP-10: minimum age for honey not stated; app restricts to ≥1 year (local policy)."
+  },
+  {
+   "id": "R-203",
+   "stage": 5,
+   "group": "management",
+   "priority": 203,
+   "statement": "Age ≥13 → steam inhalation advice",
+   "when": {
+    "var": "age_band",
+    "op": "in",
+    "value": [
+     "13_17",
+     "18_40",
+     "41_64",
+     "ge65"
+    ]
+   },
+   "then": [
+    "REC-213"
+   ],
+   "basis": "EVIDENCE",
+   "evidence_ids": [
+    "EV-028"
+   ],
+   "signoff_note": "Age restriction (≥13) is local policy; evidence is from common-cold trials."
+  },
+  {
+   "id": "R-204",
+   "stage": 5,
+   "group": "management",
+   "priority": 204,
+   "statement": "Insulin-treated diabetes → glucose monitoring and sugar-free products",
+   "when": {
+    "var": "conditions",
+    "op": "has",
+    "value": "diabetes_insulin"
+   },
+   "then": [
+    "REC-214"
+   ],
+   "basis": "EVIDENCE",
+   "evidence_ids": [
+    "EV-034"
+   ]
+  },
+  {
+   "id": "R-205",
+   "stage": 5,
+   "group": "management",
+   "priority": 205,
+   "statement": "Always: products not recommended",
+   "when": {
+    "all": []
+   },
+   "then": [
+    "REC-215"
+   ],
+   "basis": "EVIDENCE",
+   "evidence_ids": [
+    "EV-021",
+    "EV-024",
+    "EV-026",
+    "EV-027"
+   ]
+  },
+  {
+   "id": "R-206",
+   "stage": 5,
+   "group": "management",
+   "priority": 206,
+   "statement": "Pregnancy → simple linctus is the preferred option",
+   "when": {
+    "var": "pregnant",
+    "op": "==",
+    "value": true
+   },
+   "then": [
+    "REC-412"
+   ],
+   "basis": "EVIDENCE",
+   "evidence_ids": [
+    "EV-036"
+   ]
+  },
+  {
+   "id": "R-301",
+   "stage": 5,
+   "group": "management",
+   "priority": 301,
+   "statement": "Chesty cough, age 7–12 → guaifenesin 100 mg",
+   "when": {
+    "all": [
+     {
+      "var": "cough_type",
+      "op": "==",
+      "value": "chesty"
+     },
+     {
+      "var": "age_band",
+      "op": "==",
+      "value": "7_12"
+     }
+    ]
+   },
+   "then": [
+    "REC-301"
+   ],
+   "basis": "EVIDENCE",
+   "evidence_ids": [
+    "EV-023",
+    "EV-030"
+   ]
+  },
+  {
+   "id": "R-302",
+   "stage": 5,
+   "group": "management",
+   "priority": 302,
+   "statement": "Chesty cough, age ≥13 → guaifenesin 200 mg",
+   "when": {
+    "all": [
+     {
+      "var": "cough_type",
+      "op": "==",
+      "value": "chesty"
+     },
+     {
+      "var": "age_band",
+      "op": "in",
+      "value": [
+       "13_17",
+       "18_40",
+       "41_64",
+       "ge65"
+      ]
+     }
+    ]
+   },
+   "then": [
+    "REC-302"
+   ],
+   "basis": "EVIDENCE",
+   "evidence_ids": [
+    "EV-023",
+    "EV-030"
+   ]
+  },
+  {
+   "id": "R-303",
+   "stage": 5,
+   "group": "management",
+   "priority": 303,
+   "statement": "Dry cough, age ≥13 → dextromethorphan",
+   "when": {
+    "all": [
+     {
+      "var": "cough_type",
+      "op": "==",
+      "value": "dry"
+     },
+     {
+      "var": "age_band",
+      "op": "in",
+      "value": [
+       "13_17",
+       "18_40",
+       "41_64",
+       "ge65"
+      ]
+     }
+    ]
+   },
+   "then": [
+    "REC-303"
+   ],
+   "basis": "EVIDENCE",
+   "evidence_ids": [
+    "EV-021",
+    "EV-022",
+    "EV-031"
+   ]
+  },
+  {
+   "id": "R-304",
+   "stage": 5,
+   "group": "management",
+   "priority": 304,
+   "statement": "Dry cough, age ≥1 month → simple linctus",
+   "when": {
+    "all": [
+     {
+      "var": "cough_type",
+      "op": "==",
+      "value": "dry"
+     },
+     {
+      "var": "age_band",
+      "op": "in",
+      "value": [
+       "1m_1y",
+       "1_6",
+       "7_12",
+       "13_17",
+       "18_40",
+       "41_64",
+       "ge65"
+      ]
+     }
+    ]
+   },
+   "then": [
+    "REC-304"
+   ],
+   "basis": "EVIDENCE",
+   "evidence_ids": [
+    "EV-033",
+    "EV-036"
+   ]
+  },
+  {
+   "id": "R-305",
+   "stage": 5,
+   "group": "management",
+   "priority": 305,
+   "statement": "Dry cough, age ≥7 → diphenhydramine (weak evidence)",
+   "when": {
+    "all": [
+     {
+      "var": "cough_type",
+      "op": "==",
+      "value": "dry"
+     },
+     {
+      "var": "age_band",
+      "op": "in",
+      "value": [
+       "7_12",
+       "13_17",
+       "18_40",
+       "41_64",
+       "ge65"
+      ]
+     }
+    ]
+   },
+   "then": [
+    "REC-305"
+   ],
+   "basis": "EVIDENCE",
+   "evidence_ids": [
+    "EV-024",
+    "EV-032"
+   ]
+  },
+  {
+   "id": "R-401",
+   "stage": 5,
+   "group": "management",
+   "priority": 401,
+   "statement": "MAOI now or within 14 days → exclude dextromethorphan",
+   "when": {
+    "var": "medicines",
+    "op": "has",
+    "value": "maoi"
+   },
+   "then": [],
+   "basis": "EVIDENCE",
+   "evidence_ids": [
+    "EV-037"
+   ],
+   "remove": [
+    "REC-303"
+   ],
+   "reason": {
+    "en": "Contraindicated with MAOIs (including moclobemide) taken now or within the last 14 days — risk of serotonin syndrome.",
+    "ar": "مُضاد استطباب مع مثبطات أوكسيداز أحادي الأمين (ومنها موكلوبيميد) حالياً أو خلال آخر 14 يوماً — خطر متلازمة السيروتونين."
+   }
+  },
+  {
+   "id": "R-402",
+   "stage": 5,
+   "group": "management",
+   "priority": 402,
+   "statement": "SSRI or tramadol → exclude dextromethorphan",
+   "when": {
+    "var": "medicines",
+    "op": "has_any",
+    "value": [
+     "ssri",
+     "tramadol"
+    ]
+   },
+   "then": [],
+   "basis": "EVIDENCE",
+   "evidence_ids": [
+    "EV-031",
+    "EV-037"
+   ],
+   "remove": [
+    "REC-303"
+   ],
+   "reason": {
+    "en": "Risk of life-threatening serotonin syndrome with SSRIs or tramadol.",
+    "ar": "خطر متلازمة السيروتونين المهددة للحياة مع مضادات الاكتئاب SSRI أو الترامادول."
+   }
+  },
+  {
+   "id": "R-403",
+   "stage": 5,
+   "group": "management",
+   "priority": 403,
+   "statement": "Third trimester → exclude dextromethorphan",
+   "when": {
+    "all": [
+     {
+      "var": "pregnant",
+      "op": "==",
+      "value": true
+     },
+     {
+      "var": "trimester",
+      "op": "==",
+      "value": "t3"
+     }
+    ]
+   },
+   "then": [],
+   "basis": "EVIDENCE",
+   "evidence_ids": [
+    "EV-031",
+    "EV-036"
+   ],
+   "remove": [
+    "REC-303"
+   ],
+   "reason": {
+    "en": "Avoid in the third trimester of pregnancy.",
+    "ar": "يُتجنب في الثلث الثالث من الحمل."
+   }
+  },
+  {
+   "id": "R-404",
+   "stage": 5,
+   "group": "management",
+   "priority": 404,
+   "statement": "Age 13–17 with breathing problems → exclude dextromethorphan",
+   "when": {
+    "all": [
+     {
+      "var": "age_band",
+      "op": "==",
+      "value": "13_17"
+     },
+     {
+      "any": [
+       {
+        "var": "conditions",
+        "op": "has",
+        "value": "asthma"
+       },
+       {
+        "var": "features",
+        "op": "has",
+        "value": "breathless_mild"
+       }
+      ]
+     }
+    ]
+   },
+   "then": [],
+   "basis": "EVIDENCE",
+   "evidence_ids": [
+    "EV-031"
+   ],
+   "remove": [
+    "REC-303"
+   ],
+   "reason": {
+    "en": "Not for 12–18-year-olds with breathing problems.",
+    "ar": "لا يُعطى لمن أعمارهم 12–18 سنة ممن لديهم مشاكل في التنفس."
+   }
+  },
+  {
+   "id": "R-405",
+   "stage": 5,
+   "group": "management",
+   "priority": 405,
+   "statement": "Glaucoma or enlarged prostate → exclude diphenhydramine",
+   "when": {
+    "var": "conditions",
+    "op": "has_any",
+    "value": [
+     "glaucoma",
+     "prostate"
+    ]
+   },
+   "then": [],
+   "basis": "EVIDENCE",
+   "evidence_ids": [
+    "EV-032",
+    "EV-035"
+   ],
+   "remove": [
+    "REC-305"
+   ],
+   "reason": {
+    "en": "Antimuscarinic effects can precipitate angle-closure glaucoma or urinary retention.",
+    "ar": "التأثيرات المضادة للمسكارين قد تسبب الزرق مغلق الزاوية أو احتباس البول."
+   }
+  },
+  {
+   "id": "R-406",
+   "stage": 5,
+   "group": "management",
+   "priority": 406,
+   "statement": "Pregnancy → exclude diphenhydramine",
+   "when": {
+    "var": "pregnant",
+    "op": "==",
+    "value": true
+   },
+   "then": [],
+   "basis": "LOCAL-POLICY",
+   "evidence_ids": [
+    "EV-032",
+    "EV-036"
+   ],
+   "remove": [
+    "REC-305"
+   ],
+   "reason": {
+    "en": "Pregnancy safety is disputed (manufacturers advise avoidance); simple linctus is preferred.",
+    "ar": "سلامته في الحمل موضع خلاف (توصي الشركات المصنعة بتجنبه)؛ والشراب الملطف البسيط هو المفضل."
+   },
+   "signoff_note": "CONF-03: references say OK, manufacturers advise avoidance; app excludes."
+  },
+  {
+   "id": "R-407",
+   "stage": 5,
+   "group": "management",
+   "priority": 407,
+   "statement": "Guaifenesin already used correctly without effect → exclude and flag",
+   "when": {
+    "all": [
+     {
+      "var": "prior_medicine",
+      "op": "==",
+      "value": "guaifenesin"
+     },
+     {
+      "var": "dose_correct",
+      "op": "==",
+      "value": "yes"
+     },
+     {
+      "var": "adherent",
+      "op": "==",
+      "value": true
+     },
+     {
+      "var": "medicine_effect",
+      "op": "==",
+      "value": "no_change"
+     }
+    ]
+   },
+   "then": [
+    "REC-410"
+   ],
+   "basis": "LOCAL-POLICY",
+   "evidence_ids": [],
+   "remove": [
+    "REC-301",
+    "REC-302"
+   ],
+   "reason": {
+    "en": "Guaifenesin was already taken at the correct dose and regularly, without effect.",
+    "ar": "سبق أن أُخذ الغوايفينيسين بالجرعة الصحيحة وبانتظام دون فائدة."
+   },
+   "signoff_note": "GAP-07: previous-treatment assessment is not defined by the protocol."
+  },
+  {
+   "id": "R-408",
+   "stage": 5,
+   "group": "management",
+   "priority": 408,
+   "statement": "Dextromethorphan already used correctly without effect → exclude and flag",
+   "when": {
+    "all": [
+     {
+      "var": "prior_medicine",
+      "op": "==",
+      "value": "dextromethorphan"
+     },
+     {
+      "var": "dose_correct",
+      "op": "==",
+      "value": "yes"
+     },
+     {
+      "var": "adherent",
+      "op": "==",
+      "value": true
+     },
+     {
+      "var": "medicine_effect",
+      "op": "==",
+      "value": "no_change"
+     }
+    ]
+   },
+   "then": [
+    "REC-410"
+   ],
+   "basis": "LOCAL-POLICY",
+   "evidence_ids": [],
+   "remove": [
+    "REC-303"
+   ],
+   "reason": {
+    "en": "Dextromethorphan was already taken at the correct dose and regularly, without effect.",
+    "ar": "سبق أن أُخذ الديكستروميثورفان بالجرعة الصحيحة وبانتظام دون فائدة."
+   },
+   "signoff_note": "GAP-07: previous-treatment assessment is not defined by the protocol."
+  },
+  {
+   "id": "R-409",
+   "stage": 5,
+   "group": "management",
+   "priority": 409,
+   "statement": "Simple linctus already used correctly without effect → exclude and flag",
+   "when": {
+    "all": [
+     {
+      "var": "prior_medicine",
+      "op": "==",
+      "value": "simple_linctus"
+     },
+     {
+      "var": "dose_correct",
+      "op": "==",
+      "value": "yes"
+     },
+     {
+      "var": "adherent",
+      "op": "==",
+      "value": true
+     },
+     {
+      "var": "medicine_effect",
+      "op": "==",
+      "value": "no_change"
+     }
+    ]
+   },
+   "then": [
+    "REC-410"
+   ],
+   "basis": "LOCAL-POLICY",
+   "evidence_ids": [],
+   "remove": [
+    "REC-304"
+   ],
+   "reason": {
+    "en": "Simple linctus was already taken at the correct dose and regularly, without effect.",
+    "ar": "سبق أن أُخذ الشراب الملطف البسيط بالجرعة الصحيحة وبانتظام دون فائدة."
+   },
+   "signoff_note": "GAP-07: previous-treatment assessment is not defined by the protocol."
+  },
+  {
+   "id": "R-410",
+   "stage": 5,
+   "group": "management",
+   "priority": 410,
+   "statement": "Diphenhydramine already used correctly without effect → exclude and flag",
+   "when": {
+    "all": [
+     {
+      "var": "prior_medicine",
+      "op": "==",
+      "value": "diphenhydramine"
+     },
+     {
+      "var": "dose_correct",
+      "op": "==",
+      "value": "yes"
+     },
+     {
+      "var": "adherent",
+      "op": "==",
+      "value": true
+     },
+     {
+      "var": "medicine_effect",
+      "op": "==",
+      "value": "no_change"
+     }
+    ]
+   },
+   "then": [
+    "REC-410"
+   ],
+   "basis": "LOCAL-POLICY",
+   "evidence_ids": [],
+   "remove": [
+    "REC-305"
+   ],
+   "reason": {
+    "en": "Diphenhydramine was already taken at the correct dose and regularly, without effect.",
+    "ar": "سبق أن أُخذ الديفينهيدرامين بالجرعة الصحيحة وبانتظام دون فائدة."
+   },
+   "signoff_note": "GAP-07: previous-treatment assessment is not defined by the protocol."
+  },
+  {
+   "id": "R-501",
+   "stage": 5,
+   "group": "management",
+   "priority": 501,
+   "statement": "Dextromethorphan + CNS depressants or antidepressants → sedation caution",
+   "when": {
+    "all": [
+     {
+      "var": "$outputs",
+      "op": "has",
+      "value": "REC-303"
+     },
+     {
+      "var": "medicines",
+      "op": "has_any",
+      "value": [
+       "opioid",
+       "sedative",
+       "tca",
+       "other_antidepressant"
+      ]
+     }
+    ]
+   },
+   "then": [
+    "REC-401"
+   ],
+   "basis": "EVIDENCE",
+   "evidence_ids": [
+    "EV-031"
+   ]
+  },
+  {
+   "id": "R-502",
+   "stage": 5,
+   "group": "management",
+   "priority": 502,
+   "statement": "Dextromethorphan + asthma → caution",
+   "when": {
+    "all": [
+     {
+      "var": "$outputs",
+      "op": "has",
+      "value": "REC-303"
+     },
+     {
+      "var": "conditions",
+      "op": "has",
+      "value": "asthma"
+     }
+    ]
+   },
+   "then": [
+    "REC-402"
+   ],
+   "basis": "EVIDENCE",
+   "evidence_ids": [
+    "EV-031"
+   ]
+  },
+  {
+   "id": "R-503",
+   "stage": 5,
+   "group": "management",
+   "priority": 503,
+   "statement": "Dextromethorphan + breastfeeding → short periods, monitor infant",
+   "when": {
+    "all": [
+     {
+      "var": "$outputs",
+      "op": "has",
+      "value": "REC-303"
+     },
+     {
+      "var": "breastfeeding",
+      "op": "==",
+      "value": true
+     }
+    ]
+   },
+   "then": [
+    "REC-403"
+   ],
+   "basis": "EVIDENCE",
+   "evidence_ids": [
+    "EV-031"
+   ]
+  },
+  {
+   "id": "R-504",
+   "stage": 5,
+   "group": "management",
+   "priority": 504,
+   "statement": "Diphenhydramine + CNS depressants → caution",
+   "when": {
+    "all": [
+     {
+      "var": "$outputs",
+      "op": "has",
+      "value": "REC-305"
+     },
+     {
+      "var": "medicines",
+      "op": "has_any",
+      "value": [
+       "opioid",
+       "sedative",
+       "tca"
+      ]
+     }
+    ]
+   },
+   "then": [
+    "REC-404"
+   ],
+   "basis": "EVIDENCE",
+   "evidence_ids": [
+    "EV-032"
+   ]
+  },
+  {
+   "id": "R-505",
+   "stage": 5,
+   "group": "management",
+   "priority": 505,
+   "statement": "Diphenhydramine + breastfeeding → caution",
+   "when": {
+    "all": [
+     {
+      "var": "$outputs",
+      "op": "has",
+      "value": "REC-305"
+     },
+     {
+      "var": "breastfeeding",
+      "op": "==",
+      "value": true
+     }
+    ]
+   },
+   "then": [
+    "REC-405"
+   ],
+   "basis": "EVIDENCE",
+   "evidence_ids": [
+    "EV-032",
+    "EV-036"
+   ]
+  },
+  {
+   "id": "R-506",
+   "stage": 5,
+   "group": "management",
+   "priority": 506,
+   "statement": "Dry cough on an ACE inhibitor → possible drug-induced cough",
+   "when": {
+    "all": [
+     {
+      "var": "cough_type",
+      "op": "==",
+      "value": "dry"
+     },
+     {
+      "var": "medicines",
+      "op": "has",
+      "value": "acei"
+     }
+    ]
+   },
+   "then": [
+    "REC-406"
+   ],
+   "basis": "EVIDENCE",
+   "evidence_ids": [
+    "EV-016"
+   ],
+   "signoff_note": "GAP-14: suggested action (prescriber review) is local policy."
+  },
+  {
+   "id": "R-507",
+   "stage": 5,
+   "group": "management",
+   "priority": 507,
+   "statement": "Dry cough on other cough-causing drugs → note",
+   "when": {
+    "all": [
+     {
+      "var": "cough_type",
+      "op": "==",
+      "value": "dry"
+     },
+     {
+      "var": "medicines",
+      "op": "has",
+      "value": "cough_cause_other"
+     }
+    ]
+   },
+   "then": [
+    "REC-407"
+   ],
+   "basis": "EVIDENCE",
+   "evidence_ids": [
+    "EV-016"
+   ]
+  },
+  {
+   "id": "R-508",
+   "stage": 5,
+   "group": "management",
+   "priority": 508,
+   "statement": "Previous combination product → advise single agents",
+   "when": {
+    "var": "prior_medicine",
+    "op": "==",
+    "value": "combination"
+   },
+   "then": [
+    "REC-408"
+   ],
+   "basis": "EVIDENCE",
+   "evidence_ids": [
+    "EV-027"
+   ]
+  },
+  {
+   "id": "R-509",
+   "stage": 5,
+   "group": "management",
+   "priority": 509,
+   "statement": "Previous dose incorrect, unsure or irregular use → counsel correct use",
+   "when": {
+    "any": [
+     {
+      "var": "dose_correct",
+      "op": "in",
+      "value": [
+       "no",
+       "unsure"
+      ]
+     },
+     {
+      "var": "adherent",
+      "op": "==",
+      "value": false
+     }
+    ]
+   },
+   "then": [
+    "REC-409"
+   ],
+   "basis": "LOCAL-POLICY",
+   "evidence_ids": [],
+   "signoff_note": "GAP-07."
+  },
+  {
+   "id": "R-901",
+   "stage": 5,
+   "group": "management",
+   "priority": 901,
+   "statement": "No suitable OTC medicine remains → fallback message",
+   "when": {
+    "var": "$outputs",
+    "op": "has_none",
+    "value": [
+     "REC-301",
+     "REC-302",
+     "REC-303",
+     "REC-304",
+     "REC-305"
+    ]
+   },
+   "then": [
+    "REC-499"
+   ],
+   "basis": "LOCAL-POLICY",
+   "evidence_ids": [],
+   "signoff_note": "GAP-11/GAP-10: e.g. infants with chesty cough have no protocol option."
+  }
+ ],
+ "outputs": [
+  {
+   "id": "REC-101",
+   "kind": "refer",
+   "urgency": "urgent",
+   "title": {
+    "en": "Red-flag symptoms",
+    "ar": "أعراض خطرة"
+   },
+   "text": {
+    "en": "Chest pain, coughing up blood, pain on breathing in, severe breathlessness or prominent wheezing may indicate serious chest disease (e.g. pulmonary embolism, pneumonia, pneumothorax, cancer). Do not supply OTC bronchodilators.",
+    "ar": "قد يشير ألم الصدر أو السعال المصحوب بالدم أو الألم عند الشهيق أو ضيق النفس الشديد أو الأزيز الواضح إلى مرض صدري خطير (مثل الانصمام الرئوي أو ذات الرئة أو استرواح الصدر أو السرطان). لا تصرف موسعات قصبات دون وصفة."
+   },
+   "evidence_ids": [
+    "EV-005",
+    "EV-038"
+   ]
+  },
+  {
+   "id": "REC-102",
+   "kind": "refer",
+   "urgency": "urgent",
+   "title": {
+    "en": "Blood-stained sputum",
+    "ar": "بلغم مصحوب بالدم"
+   },
+   "text": {
+    "en": "Rust, pink or dark red blood in sputum can indicate pneumonia, pulmonary oedema or lung cancer.",
+    "ar": "الدم بلون الصدأ أو الوردي أو الأحمر الداكن في البلغم قد يدل على ذات الرئة أو الوذمة الرئوية أو سرطان الرئة."
+   },
+   "evidence_ids": [
+    "EV-010",
+    "EV-011"
+   ]
+  },
+  {
+   "id": "REC-103",
+   "kind": "refer",
+   "urgency": "urgent",
+   "title": {
+    "en": "Debilitating symptoms",
+    "ar": "أعراض منهكة"
+   },
+   "text": {
+    "en": "Debilitating symptoms carry a high risk of rapid deterioration and lower respiratory tract complications.",
+    "ar": "تنطوي الأعراض المنهكة على خطر مرتفع للتدهور السريع ومضاعفات الجهاز التنفسي السفلي."
+   },
+   "evidence_ids": [
+    "EV-009",
+    "EV-010"
+   ]
+  },
+  {
+   "id": "REC-104",
+   "kind": "refer",
+   "urgency": "urgent",
+   "title": {
+    "en": "Possible pneumonia",
+    "ar": "احتمال ذات الرئة"
+   },
+   "text": {
+    "en": "Older adults with pneumonia may have no fever and present only with confusion.",
+    "ar": "قد لا يعاني كبار السن المصابون بذات الرئة من الحمى وقد يظهر عليهم التشوش الذهني فقط."
+   },
+   "evidence_ids": [
+    "EV-014"
+   ]
+  },
+  {
+   "id": "REC-105",
+   "kind": "refer",
+   "urgency": "urgent",
+   "title": {
+    "en": "Possible lung cancer signs",
+    "ar": "علامات محتملة لسرطان الرئة"
+   },
+   "text": {
+    "en": "Over 40 years: two or more of coughing up blood, breathlessness, chest pain, loss of appetite, weight loss or fatigue — or one of these in a smoker — needs urgent assessment.",
+    "ar": "فوق 40 سنة: وجود علامتين أو أكثر من (سعال بالدم، ضيق نفس، ألم صدر، فقدان شهية، فقدان وزن، تعب) — أو علامة واحدة لدى المدخن — يستدعي تقييماً عاجلاً."
+   },
+   "evidence_ids": [
+    "EV-013"
+   ]
+  },
+  {
+   "id": "REC-106",
+   "kind": "refer",
+   "urgency": "urgent",
+   "title": {
+    "en": "Chesty cough in an older adult",
+    "ar": "سعال منتج للبلغم لدى كبير السن"
+   },
+   "text": {
+    "en": "The protocol routes productive cough in older adults to urgent referral because of the risk of rapid deterioration.",
+    "ar": "يوجّه البروتوكول السعال المنتج للبلغم لدى كبار السن إلى إحالة عاجلة بسبب خطر التدهور السريع."
+   },
+   "evidence_ids": [
+    "EV-010"
+   ]
+  },
+  {
+   "id": "REC-107",
+   "kind": "refer",
+   "urgency": "urgent",
+   "title": {
+    "en": "Frothy sputum",
+    "ar": "بلغم رغوي"
+   },
+   "text": {
+    "en": "Thin, frothy sputum suggests left ventricular failure (pulmonary oedema).",
+    "ar": "البلغم الرقيق الرغوي يوحي بقصور البطين الأيسر (وذمة رئوية)."
+   },
+   "evidence_ids": [
+    "EV-012",
+    "EV-041"
+   ]
+  },
+  {
+   "id": "REC-108",
+   "kind": "refer",
+   "urgency": "urgent",
+   "title": {
+    "en": "Barking cough or stridor",
+    "ar": "سعال نباحي أو صرير"
+   },
+   "text": {
+    "en": "A seal-like barking cough with noisy breathing suggests croup or upper airway narrowing and needs medical assessment.",
+    "ar": "السعال النباحي مع صوت صرير عند التنفس يوحي بالخانوق أو تضيق مجرى الهواء العلوي ويحتاج إلى تقييم طبي."
+   },
+   "evidence_ids": [
+    "EV-020"
+   ]
+  },
+  {
+   "id": "REC-109",
+   "kind": "refer",
+   "urgency": "urgent",
+   "title": {
+    "en": "Infant under 1 month",
+    "ar": "رضيع عمره أقل من شهر"
+   },
+   "text": {
+    "en": "The protocol has no OTC option for infants under 1 month. Refer for medical assessment.",
+    "ar": "لا يتضمن البروتوكول أي خيار دون وصفة للرضع دون عمر الشهر. أحِل الرضيع للتقييم الطبي."
+   },
+   "evidence_ids": []
+  },
+  {
+   "id": "REC-111",
+   "kind": "refer",
+   "urgency": "soon",
+   "title": {
+    "en": "Cough for 3 weeks or more",
+    "ar": "سعال لمدة 3 أسابيع أو أكثر"
+   },
+   "text": {
+    "en": "A cough lasting 3 weeks or more is no longer acute and needs medical investigation (asthma, COPD, UACS, bronchiectasis, cancer).",
+    "ar": "السعال المستمر 3 أسابيع أو أكثر لم يعد حاداً ويحتاج إلى استقصاء طبي (الربو، الانسداد الرئوي المزمن، متلازمة السعال من المجرى العلوي، توسع القصبات، السرطان)."
+   },
+   "evidence_ids": [
+    "EV-001",
+    "EV-004",
+    "EV-006"
+   ]
+  },
+  {
+   "id": "REC-112",
+   "kind": "refer",
+   "urgency": "soon",
+   "title": {
+    "en": "Recurring cough",
+    "ar": "سعال متكرر"
+   },
+   "text": {
+    "en": "Recurring cough episodes suggest a chronic respiratory condition.",
+    "ar": "نوبات السعال المتكررة توحي بحالة تنفسية مزمنة."
+   },
+   "evidence_ids": [
+    "EV-006"
+   ]
+  },
+  {
+   "id": "REC-113",
+   "kind": "refer",
+   "urgency": "soon",
+   "title": {
+    "en": "Unexplained appetite or weight loss",
+    "ar": "فقدان شهية أو وزن غير مبرر"
+   },
+   "text": {
+    "en": "May indicate systemic disease, tuberculosis or lung cancer.",
+    "ar": "قد يدل على مرض جهازي أو السل أو سرطان الرئة."
+   },
+   "evidence_ids": [
+    "EV-008"
+   ]
+  },
+  {
+   "id": "REC-114",
+   "kind": "refer",
+   "urgency": "soon",
+   "title": {
+    "en": "Persistent night-time cough in a child",
+    "ar": "سعال ليلي مستمر لدى طفل"
+   },
+   "text": {
+    "en": "May indicate uncontrolled asthma.",
+    "ar": "قد يدل على ربو غير مسيطر عليه."
+   },
+   "evidence_ids": [
+    "EV-007"
+   ]
+  },
+  {
+   "id": "REC-115",
+   "kind": "refer",
+   "urgency": "soon",
+   "title": {
+    "en": "Possible asthma or allergy",
+    "ar": "احتمال ربو أو حساسية"
+   },
+   "text": {
+    "en": "A triggered or seasonal cough with a family history of asthma or allergy should be assessed by a physician.",
+    "ar": "السعال المرتبط بالمحفزات أو المواسم مع تاريخ عائلي للربو أو الحساسية يجب أن يقيّمه الطبيب."
+   },
+   "evidence_ids": [
+    "EV-010",
+    "EV-019"
+   ]
+  },
+  {
+   "id": "REC-116",
+   "kind": "refer",
+   "urgency": "soon",
+   "title": {
+    "en": "Foul-smelling sputum",
+    "ar": "بلغم كريه الرائحة"
+   },
+   "text": {
+    "en": "Offensive sputum suggests bronchiectasis or a lung abscess.",
+    "ar": "البلغم كريه الرائحة يوحي بتوسع القصبات أو خراج الرئة."
+   },
+   "evidence_ids": [
+    "EV-012"
+   ]
+  },
+  {
+   "id": "REC-117",
+   "kind": "refer",
+   "urgency": "soon",
+   "title": {
+    "en": "Worse after treatment",
+    "ar": "ساءت الحالة بعد العلاج"
+   },
+   "text": {
+    "en": "Symptoms got worse after self-care or medicine. Refer for medical assessment.",
+    "ar": "ساءت الأعراض بعد الرعاية الذاتية أو الدواء. أحِل المريض للتقييم الطبي."
+   },
+   "evidence_ids": []
+  },
+  {
+   "id": "REC-118",
+   "kind": "refer",
+   "urgency": "soon",
+   "title": {
+    "en": "Possible COPD exacerbation",
+    "ar": "احتمال تفاقم الانسداد الرئوي المزمن"
+   },
+   "text": {
+    "en": "An acute drop in activity with worse breathlessness may need antibiotics and corticosteroids from a GP.",
+    "ar": "الانخفاض الحاد في النشاط مع ازدياد ضيق النفس قد يحتاج إلى مضادات حيوية وكورتيكوستيرويدات من الطبيب."
+   },
+   "evidence_ids": [
+    "EV-015"
+   ]
+  },
+  {
+   "id": "REC-201",
+   "kind": "info",
+   "title": {
+    "en": "Likely viral upper respiratory infection",
+    "ar": "على الأرجح عدوى فيروسية في الجهاز التنفسي العلوي"
+   },
+   "text": {
+    "en": "Usually lasts 7–10 days; cough is often worse in the evening.",
+    "ar": "تستمر عادة 7–10 أيام؛ وغالباً ما يزداد السعال مساءً."
+   },
+   "evidence_ids": [
+    "EV-010",
+    "EV-017"
+   ]
+  },
+  {
+   "id": "REC-202",
+   "kind": "info",
+   "title": {
+    "en": "Likely postnasal drip (upper airway cough syndrome)",
+    "ar": "على الأرجح تنقيط أنفي خلفي (متلازمة السعال من المجرى الهوائي العلوي)"
+   },
+   "text": {
+    "en": "Nasal or sinus secretions drain into the throat. The protocol notes it is treated with antihistamines and/or decongestants.",
+    "ar": "تنزل إفرازات الأنف أو الجيوب إلى الحلق. يذكر البروتوكول أنها تُعالج بمضادات الهيستامين و/أو مزيلات الاحتقان."
+   },
+   "evidence_ids": [
+    "EV-010",
+    "EV-018"
+   ]
+  },
+  {
+   "id": "REC-203",
+   "kind": "info",
+   "title": {
+    "en": "Allergic pattern without family history",
+    "ar": "نمط تحسسي دون تاريخ عائلي"
+   },
+   "text": {
+    "en": "Treat symptoms and monitor. Refer if wheeze, breathlessness or night-time symptoms develop.",
+    "ar": "عالج الأعراض وراقب الحالة. أحِل المريض إذا ظهر أزيز أو ضيق نفس أو أعراض ليلية."
+   },
+   "evidence_ids": [
+    "EV-010",
+    "EV-019"
+   ]
+  },
+  {
+   "id": "REC-204",
+   "kind": "info",
+   "title": {
+    "en": "Sputum colour",
+    "ar": "لون البلغم"
+   },
+   "text": {
+    "en": "Clear or white sputum is of little consequence. Yellow, green or brown sputum usually means a viral infection and does not routinely need antibiotics.",
+    "ar": "البلغم الشفاف أو الأبيض قليل الأهمية. البلغم الأصفر أو الأخضر أو البني يعني عادة عدوى فيروسية ولا يحتاج روتينياً إلى مضادات حيوية."
+   },
+   "evidence_ids": [
+    "EV-011"
+   ]
+  },
+  {
+   "id": "REC-205",
+   "kind": "info",
+   "title": {
+    "en": "Single streak of bright red blood",
+    "ar": "خيط واحد من الدم الأحمر الفاتح"
+   },
+   "text": {
+    "en": "A single bright red event is usually a small airway vessel ruptured by coughing; it is not serious and does not need referral.",
+    "ar": "حدث واحد من الدم الأحمر الفاتح يكون عادة بسبب تمزق وعاء صغير في مجرى الهواء من قوة السعال؛ وهو غير خطير ولا يحتاج إلى إحالة."
+   },
+   "evidence_ids": [
+    "EV-011"
+   ]
+  },
+  {
+   "id": "REC-210",
+   "kind": "advice",
+   "title": {
+    "en": "Expected course",
+    "ar": "المسار المتوقع"
+   },
+   "text": {
+    "en": "Most coughs get better on their own within 3–4 weeks. Cough medicines have limited evidence; they ease symptoms rather than cure.",
+    "ar": "يتحسن معظم السعال من تلقاء نفسه خلال 3–4 أسابيع. أدلة فعالية أدوية السعال محدودة؛ فهي تخفف الأعراض ولا تشفي."
+   },
+   "evidence_ids": [
+    "EV-002",
+    "EV-021"
+   ]
+  },
+  {
+   "id": "REC-211",
+   "kind": "advice",
+   "title": {
+    "en": "When to come back or see a doctor",
+    "ar": "متى يعود المريض أو يراجع الطبيب"
+   },
+   "text": {
+    "en": "Seek help the same day for chest pain, coughing up blood, pain on breathing in, severe breathlessness or wheezing. See a doctor if the cough lasts 3 weeks or more.",
+    "ar": "اطلب المساعدة في اليوم نفسه عند ألم الصدر أو السعال بالدم أو الألم عند الشهيق أو ضيق النفس الشديد أو الأزيز. راجع الطبيب إذا استمر السعال 3 أسابيع أو أكثر."
+   },
+   "evidence_ids": [
+    "EV-004",
+    "EV-005"
+   ]
+  },
+  {
+   "id": "REC-212",
+   "kind": "advice",
+   "title": {
+    "en": "Honey for children",
+    "ar": "العسل للأطفال"
+   },
+   "text": {
+    "en": "Honey for up to 3 days can reduce how long and how badly children cough. (Not offered under 1 year in this app.)",
+    "ar": "العسل لمدة تصل إلى 3 أيام قد يقلل مدة وشدة السعال لدى الأطفال. (لا يُقترح دون عمر السنة في هذا التطبيق.)"
+   },
+   "evidence_ids": [
+    "EV-025"
+   ]
+  },
+  {
+   "id": "REC-213",
+   "kind": "advice",
+   "title": {
+    "en": "Steam inhalation",
+    "ar": "استنشاق البخار"
+   },
+   "text": {
+    "en": "May give modest comfort; it can cause minor nasal discomfort.",
+    "ar": "قد يمنح راحة بسيطة؛ وقد يسبب انزعاجاً خفيفاً في الأنف."
+   },
+   "evidence_ids": [
+    "EV-028"
+   ]
+  },
+  {
+   "id": "REC-214",
+   "kind": "advice",
+   "title": {
+    "en": "Insulin-treated diabetes",
+    "ar": "السكري المعالج بالأنسولين"
+   },
+   "text": {
+    "en": "Check blood glucose more often while unwell and choose sugar-free cough products.",
+    "ar": "افحص سكر الدم بشكل أكثر تكراراً خلال المرض واختر مستحضرات سعال خالية من السكر."
+   },
+   "evidence_ids": [
+    "EV-034"
+   ]
+  },
+  {
+   "id": "REC-215",
+   "kind": "advice",
+   "title": {
+    "en": "Products not recommended",
+    "ar": "مستحضرات غير موصى بها"
+   },
+   "text": {
+    "en": "Avoid multi-ingredient cough mixtures, non-sedating antihistamines and herbal cough remedies — the evidence does not support them.",
+    "ar": "تجنب خلطات السعال متعددة المكونات ومضادات الهيستامين غير المنوِّمة والعلاجات العشبية للسعال — فالأدلة لا تدعمها."
+   },
+   "evidence_ids": [
+    "EV-024",
+    "EV-026",
+    "EV-027"
+   ]
+  },
+  {
+   "id": "REC-412",
+   "kind": "info",
+   "title": {
+    "en": "Pregnancy",
+    "ar": "الحمل"
+   },
+   "text": {
+    "en": "Simple linctus is the preferred option in pregnancy.",
+    "ar": "الشراب الملطّف البسيط هو الخيار المفضل أثناء الحمل."
+   },
+   "evidence_ids": [
+    "EV-036"
+   ]
+  },
+  {
+   "id": "REC-401",
+   "kind": "caution",
+   "applies_to": "REC-303",
+   "title": {
+    "en": "Sedation with other medicines",
+    "ar": "التسكين مع أدوية أخرى"
+   },
+   "text": {
+    "en": "Dextromethorphan increases sedation with opioids, anxiolytics, hypnotics and antidepressants. Advise caution.",
+    "ar": "يزيد الديكستروميثورفان التسكين مع الأفيونات ومضادات القلق والمنومات ومضادات الاكتئاب. انصح بالحذر."
+   },
+   "evidence_ids": [
+    "EV-031"
+   ]
+  },
+  {
+   "id": "REC-402",
+   "kind": "caution",
+   "applies_to": "REC-303",
+   "title": {
+    "en": "Asthma",
+    "ar": "الربو"
+   },
+   "text": {
+    "en": "Use dextromethorphan with care in asthma (theoretical risk of respiratory depression).",
+    "ar": "استخدم الديكستروميثورفان بحذر لدى مرضى الربو (خطر نظري لتثبيط التنفس)."
+   },
+   "evidence_ids": [
+    "EV-031"
+   ]
+  },
+  {
+   "id": "REC-403",
+   "kind": "caution",
+   "applies_to": "REC-303",
+   "title": {
+    "en": "Breastfeeding",
+    "ar": "الرضاعة الطبيعية"
+   },
+   "text": {
+    "en": "Dextromethorphan is OK for short periods; watch the infant for drowsiness or poor feeding.",
+    "ar": "الديكستروميثورفان مقبول لفترات قصيرة؛ راقب الرضيع من حيث النعاس أو ضعف الرضاعة."
+   },
+   "evidence_ids": [
+    "EV-031"
+   ]
+  },
+  {
+   "id": "REC-404",
+   "kind": "caution",
+   "applies_to": "REC-305",
+   "title": {
+    "en": "Sedation with other medicines",
+    "ar": "التسكين مع أدوية أخرى"
+   },
+   "text": {
+    "en": "Diphenhydramine adds to the sedation of opioids, sedatives, hypnotics and tricyclic antidepressants.",
+    "ar": "يزيد الديفينهيدرامين من تسكين الأفيونات والمهدئات والمنومات ومضادات الاكتئاب ثلاثية الحلقات."
+   },
+   "evidence_ids": [
+    "EV-032"
+   ]
+  },
+  {
+   "id": "REC-405",
+   "kind": "caution",
+   "applies_to": "REC-305",
+   "title": {
+    "en": "Breastfeeding",
+    "ar": "الرضاعة الطبيعية"
+   },
+   "text": {
+    "en": "Diphenhydramine may reduce milk supply and sedate the infant.",
+    "ar": "قد يقلل الديفينهيدرامين إدرار الحليب ويسبب النعاس للرضيع."
+   },
+   "evidence_ids": [
+    "EV-032",
+    "EV-036"
+   ]
+  },
+  {
+   "id": "REC-406",
+   "kind": "caution",
+   "title": {
+    "en": "Possible ACE-inhibitor cough",
+    "ar": "احتمال سعال ناتج عن مثبطات الإنزيم المحول"
+   },
+   "text": {
+    "en": "Up to 16% of patients on ACE inhibitors develop a dry cough. Suggest a review with the prescriber; the patient should not stop the medicine without advice.",
+    "ar": "يصاب ما يصل إلى 16% من مستخدمي مثبطات الإنزيم المحول بسعال جاف. اقترح مراجعة الطبيب الواصف؛ ولا يجوز للمريض إيقاف الدواء دون استشارة."
+   },
+   "evidence_ids": [
+    "EV-016"
+   ]
+  },
+  {
+   "id": "REC-407",
+   "kind": "info",
+   "title": {
+    "en": "Medicine may contribute",
+    "ar": "قد يساهم دواء في السعال"
+   },
+   "text": {
+    "en": "NSAIDs, sitagliptin, calcium-channel blockers and beta-blockers can occasionally cause cough.",
+    "ar": "قد تسبب مضادات الالتهاب غير الستيرويدية والسيتاغليبتين وحاصرات قنوات الكالسيوم وحاصرات بيتا السعال أحياناً."
+   },
+   "evidence_ids": [
+    "EV-016"
+   ]
+  },
+  {
+   "id": "REC-408",
+   "kind": "info",
+   "title": {
+    "en": "Previous combination product",
+    "ar": "مستحضر مركّب سابق"
+   },
+   "text": {
+    "en": "Combination cough products may contain illogical mixtures and low doses. Recommend a single-ingredient product instead.",
+    "ar": "قد تحتوي مستحضرات السعال المركّبة على خلطات غير منطقية وجرعات منخفضة. انصح بمستحضر أحادي المكوّن بدلاً منها."
+   },
+   "evidence_ids": [
+    "EV-027"
+   ]
+  },
+  {
+   "id": "REC-409",
+   "kind": "info",
+   "title": {
+    "en": "Previous treatment not used correctly",
+    "ar": "العلاج السابق لم يُستخدم بشكل صحيح"
+   },
+   "text": {
+    "en": "Explain the correct dose and how often to take it before judging whether the medicine works.",
+    "ar": "اشرح الجرعة الصحيحة وعدد مرات أخذها قبل الحكم على فعالية الدواء."
+   },
+   "evidence_ids": []
+  },
+  {
+   "id": "REC-410",
+   "kind": "info",
+   "title": {
+    "en": "Previous medicine did not help",
+    "ar": "الدواء السابق لم يُفد"
+   },
+   "text": {
+    "en": "The medicine already tried correctly is not suggested again.",
+    "ar": "لا يُقترح مجدداً الدواء الذي جُرّب بشكل صحيح."
+   },
+   "evidence_ids": []
+  },
+  {
+   "id": "REC-499",
+   "kind": "caution",
+   "title": {
+    "en": "No suitable OTC medicine in the protocol",
+    "ar": "لا يوجد دواء مناسب دون وصفة في البروتوكول"
+   },
+   "text": {
+    "en": "Give the self-care advice. Consider referral to a physician, especially for infants.",
+    "ar": "قدّم نصائح الرعاية الذاتية. فكّر في الإحالة إلى الطبيب، خاصة للرضع."
+   },
+   "evidence_ids": []
+  },
+  {
+   "id": "REC-301",
+   "kind": "medicine",
+   "title": {
+    "en": "Guaifenesin",
+    "ar": "غوايفينيسين"
+   },
+   "class": {
+    "en": "Expectorant — for chesty cough",
+    "ar": "مقشّع — للسعال المنتج للبلغم"
+   },
+   "evidence_ids": [
+    "EV-023",
+    "EV-030"
+   ],
+   "evidence_level": "Modest / mixed",
+   "monograph": {
+    "dose": {
+     "en": "100 mg (age 7–12 years)",
+     "ar": "100 ملغ (للأعمار 7–12 سنة)"
+    },
+    "form": {
+     "en": "Oral liquid or tablet (form not specified; sugar-free liquids exist)",
+     "ar": "سائل فموي أو قرص (الشكل غير محدد؛ تتوفر سوائل خالية من السكر)"
+    },
+    "regimen": {
+     "en": "Four times a day",
+     "ar": "أربع مرات يومياً"
+    },
+    "side_effects": {
+     "en": "None reported",
+     "ar": "لا توجد آثار جانبية مُبلغ عنها"
+    },
+    "drug_interactions": {
+     "en": "None of clinical significance",
+     "ar": "لا توجد تداخلات ذات أهمية سريرية"
+    },
+    "food_interactions": {
+     "en": "Not specified in the reference protocol (GAP-04). Check the product leaflet.",
+     "ar": "غير مذكور في البروتوكول المرجعي (GAP-04). راجع النشرة الداخلية للمستحضر."
+    },
+    "duration": {
+     "en": "Self-limiting cough usually settles in 3–4 weeks. Product-specific maximum duration is not stated in the protocol (GAP-06); refer if the cough lasts 3 weeks or more.",
+     "ar": "يتحسن السعال عادة خلال 3–4 أسابيع. لا يحدد البروتوكول مدة قصوى خاصة بالمستحضر (GAP-06)؛ أحِل المريض إذا استمر السعال 3 أسابيع أو أكثر."
+    },
+    "onset": {
+     "en": "Not specified in the reference protocol (GAP-05). Check the product leaflet.",
+     "ar": "غير مذكور في البروتوكول المرجعي (GAP-05). راجع النشرة الداخلية للمستحضر."
+    },
+    "pregnancy": {
+     "en": "OK",
+     "ar": "مقبول"
+    },
+    "breastfeeding": {
+     "en": "OK",
+     "ar": "مقبول"
+    },
+    "cautions": {
+     "en": "None listed",
+     "ar": "لا توجد"
+    }
+   }
+  },
+  {
+   "id": "REC-302",
+   "kind": "medicine",
+   "title": {
+    "en": "Guaifenesin",
+    "ar": "غوايفينيسين"
+   },
+   "class": {
+    "en": "Expectorant — for chesty cough",
+    "ar": "مقشّع — للسعال المنتج للبلغم"
+   },
+   "evidence_ids": [
+    "EV-023",
+    "EV-030"
+   ],
+   "evidence_level": "Modest / mixed",
+   "monograph": {
+    "dose": {
+     "en": "200 mg (age 13 years and over)",
+     "ar": "200 ملغ (من عمر 13 سنة فأكثر)"
+    },
+    "form": {
+     "en": "Oral liquid or tablet (form not specified; sugar-free liquids exist)",
+     "ar": "سائل فموي أو قرص (الشكل غير محدد؛ تتوفر سوائل خالية من السكر)"
+    },
+    "regimen": {
+     "en": "Four times a day",
+     "ar": "أربع مرات يومياً"
+    },
+    "side_effects": {
+     "en": "None reported",
+     "ar": "لا توجد آثار جانبية مُبلغ عنها"
+    },
+    "drug_interactions": {
+     "en": "None of clinical significance",
+     "ar": "لا توجد تداخلات ذات أهمية سريرية"
+    },
+    "food_interactions": {
+     "en": "Not specified in the reference protocol (GAP-04). Check the product leaflet.",
+     "ar": "غير مذكور في البروتوكول المرجعي (GAP-04). راجع النشرة الداخلية للمستحضر."
+    },
+    "duration": {
+     "en": "Self-limiting cough usually settles in 3–4 weeks. Product-specific maximum duration is not stated in the protocol (GAP-06); refer if the cough lasts 3 weeks or more.",
+     "ar": "يتحسن السعال عادة خلال 3–4 أسابيع. لا يحدد البروتوكول مدة قصوى خاصة بالمستحضر (GAP-06)؛ أحِل المريض إذا استمر السعال 3 أسابيع أو أكثر."
+    },
+    "onset": {
+     "en": "Not specified in the reference protocol (GAP-05). Check the product leaflet.",
+     "ar": "غير مذكور في البروتوكول المرجعي (GAP-05). راجع النشرة الداخلية للمستحضر."
+    },
+    "pregnancy": {
+     "en": "OK",
+     "ar": "مقبول"
+    },
+    "breastfeeding": {
+     "en": "OK",
+     "ar": "مقبول"
+    },
+    "cautions": {
+     "en": "None listed",
+     "ar": "لا توجد"
+    }
+   }
+  },
+  {
+   "id": "REC-303",
+   "kind": "medicine",
+   "title": {
+    "en": "Dextromethorphan",
+    "ar": "ديكستروميثورفان"
+   },
+   "class": {
+    "en": "Cough suppressant — for dry cough",
+    "ar": "مثبط للسعال — للسعال الجاف"
+   },
+   "evidence_ids": [
+    "EV-021",
+    "EV-022",
+    "EV-031",
+    "EV-037"
+   ],
+   "evidence_level": "Modest / mixed",
+   "monograph": {
+    "dose": {
+     "en": "10 mL (age 13 years and over). Product strength is not stated in the protocol (GAP-01) — check the label.",
+     "ar": "10 مل (من عمر 13 سنة فأكثر). تركيز المستحضر غير مذكور في البروتوكول (GAP-01) — راجع الملصق."
+    },
+    "form": {
+     "en": "Oral liquid",
+     "ar": "سائل فموي"
+    },
+    "regimen": {
+     "en": "Four times a day",
+     "ar": "أربع مرات يومياً"
+    },
+    "side_effects": {
+     "en": "Drowsiness, sedation",
+     "ar": "نعاس، تسكين"
+    },
+    "drug_interactions": {
+     "en": "More sedation with alcohol, opioids, anxiolytics, hypnotics, antidepressants. Serotonin syndrome with MAOIs (within 14 days), SSRIs, tramadol.",
+     "ar": "تسكين أكبر مع الكحول والأفيونات ومضادات القلق والمنومات ومضادات الاكتئاب. متلازمة السيروتونين مع مثبطات MAO (خلال 14 يوماً) ومضادات SSRI والترامادول."
+    },
+    "food_interactions": {
+     "en": "Avoid alcohol (increases sedation). Other food interactions not stated (GAP-04).",
+     "ar": "تجنب الكحول (يزيد التسكين). التداخلات الغذائية الأخرى غير مذكورة (GAP-04)."
+    },
+    "duration": {
+     "en": "Self-limiting cough usually settles in 3–4 weeks. Product-specific maximum duration is not stated in the protocol (GAP-06); refer if the cough lasts 3 weeks or more.",
+     "ar": "يتحسن السعال عادة خلال 3–4 أسابيع. لا يحدد البروتوكول مدة قصوى خاصة بالمستحضر (GAP-06)؛ أحِل المريض إذا استمر السعال 3 أسابيع أو أكثر."
+    },
+    "onset": {
+     "en": "Not specified in the reference protocol (GAP-05). Check the product leaflet.",
+     "ar": "غير مذكور في البروتوكول المرجعي (GAP-05). راجع النشرة الداخلية للمستحضر."
+    },
+    "pregnancy": {
+     "en": "Avoid in the third trimester",
+     "ar": "يُتجنب في الثلث الثالث"
+    },
+    "breastfeeding": {
+     "en": "OK for short periods; monitor infant for drowsiness or poor feeding",
+     "ar": "مقبول لفترات قصيرة؛ راقب الرضيع من حيث النعاس أو ضعف الرضاعة"
+    },
+    "cautions": {
+     "en": "Asthma (theoretical respiratory depression). Not for 12–18-year-olds with breathing problems.",
+     "ar": "الربو (تثبيط تنفسي نظري). لا يُعطى لمن أعمارهم 12–18 سنة ممن لديهم مشاكل تنفسية."
+    }
+   }
+  },
+  {
+   "id": "REC-304",
+   "kind": "medicine",
+   "title": {
+    "en": "Simple linctus",
+    "ar": "الشراب الملطّف البسيط (Simple linctus)"
+   },
+   "class": {
+    "en": "Demulcent — soothes an irritated throat",
+    "ar": "ملطّف — يهدئ الحلق المتهيج"
+   },
+   "evidence_ids": [
+    "EV-033",
+    "EV-036"
+   ],
+   "evidence_level": "Low (pharmacologically inert)",
+   "monograph": {
+    "dose": {
+     "en": "Volume per dose not stated in the protocol (GAP-02) — follow the product label for age.",
+     "ar": "حجم الجرعة غير مذكور في البروتوكول (GAP-02) — اتبع ملصق المستحضر حسب العمر."
+    },
+    "form": {
+     "en": "Oral liquid (linctus)",
+     "ar": "سائل فموي (لعوق)"
+    },
+    "regimen": {
+     "en": "3–4 times a day",
+     "ar": "3–4 مرات يومياً"
+    },
+    "side_effects": {
+     "en": "None listed",
+     "ar": "لا توجد"
+    },
+    "drug_interactions": {
+     "en": "None listed",
+     "ar": "لا توجد"
+    },
+    "food_interactions": {
+     "en": "Not specified in the reference protocol (GAP-04). Check the product leaflet.",
+     "ar": "غير مذكور في البروتوكول المرجعي (GAP-04). راجع النشرة الداخلية للمستحضر."
+    },
+    "duration": {
+     "en": "Self-limiting cough usually settles in 3–4 weeks. Product-specific maximum duration is not stated in the protocol (GAP-06); refer if the cough lasts 3 weeks or more.",
+     "ar": "يتحسن السعال عادة خلال 3–4 أسابيع. لا يحدد البروتوكول مدة قصوى خاصة بالمستحضر (GAP-06)؛ أحِل المريض إذا استمر السعال 3 أسابيع أو أكثر."
+    },
+    "onset": {
+     "en": "Not specified in the reference protocol (GAP-05). Check the product leaflet.",
+     "ar": "غير مذكور في البروتوكول المرجعي (GAP-05). راجع النشرة الداخلية للمستحضر."
+    },
+    "pregnancy": {
+     "en": "OK — preferred in pregnancy",
+     "ar": "مقبول — المفضل في الحمل"
+    },
+    "breastfeeding": {
+     "en": "OK",
+     "ar": "مقبول"
+    },
+    "cautions": {
+     "en": "None listed",
+     "ar": "لا توجد"
+    }
+   }
+  },
+  {
+   "id": "REC-305",
+   "kind": "medicine",
+   "title": {
+    "en": "Diphenhydramine",
+    "ar": "ديفينهيدرامين"
+   },
+   "class": {
+    "en": "Sedating antihistamine — for dry cough (weak evidence)",
+    "ar": "مضاد هيستامين منوّم — للسعال الجاف (أدلة ضعيفة)"
+   },
+   "evidence_ids": [
+    "EV-024",
+    "EV-032",
+    "EV-035"
+   ],
+   "evidence_level": "Low / uncertain",
+   "monograph": {
+    "dose": {
+     "en": "Dose not stated in the protocol (GAP-03) — follow the product label (age 7 years and over).",
+     "ar": "الجرعة غير مذكورة في البروتوكول (GAP-03) — اتبع ملصق المستحضر (من عمر 7 سنوات فأكثر)."
+    },
+    "form": {
+     "en": "Not specified in the reference protocol (GAP-03). Check the product leaflet.",
+     "ar": "غير مذكور في البروتوكول المرجعي (GAP-03). راجع النشرة الداخلية للمستحضر."
+    },
+    "regimen": {
+     "en": "Not specified in the reference protocol (GAP-03). Check the product leaflet.",
+     "ar": "غير مذكور في البروتوكول المرجعي (GAP-03). راجع النشرة الداخلية للمستحضر."
+    },
+    "side_effects": {
+     "en": "Sedation, dry mouth, dizziness, headache, nausea, constipation",
+     "ar": "تسكين، جفاف الفم، دوخة، صداع، غثيان، إمساك"
+    },
+    "drug_interactions": {
+     "en": "More CNS depression with alcohol, opioids, sedatives, hypnotics, tricyclic antidepressants",
+     "ar": "تثبيط أكبر للجهاز العصبي مع الكحول والأفيونات والمهدئات والمنومات ومضادات الاكتئاب ثلاثية الحلقات"
+    },
+    "food_interactions": {
+     "en": "Avoid alcohol (increases sedation). Other food interactions not stated (GAP-04).",
+     "ar": "تجنب الكحول (يزيد التسكين). التداخلات الغذائية الأخرى غير مذكورة (GAP-04)."
+    },
+    "duration": {
+     "en": "Self-limiting cough usually settles in 3–4 weeks. Product-specific maximum duration is not stated in the protocol (GAP-06); refer if the cough lasts 3 weeks or more.",
+     "ar": "يتحسن السعال عادة خلال 3–4 أسابيع. لا يحدد البروتوكول مدة قصوى خاصة بالمستحضر (GAP-06)؛ أحِل المريض إذا استمر السعال 3 أسابيع أو أكثر."
+    },
+    "onset": {
+     "en": "Not specified in the reference protocol (GAP-05). Check the product leaflet.",
+     "ar": "غير مذكور في البروتوكول المرجعي (GAP-05). راجع النشرة الداخلية للمستحضر."
+    },
+    "pregnancy": {
+     "en": "Disputed: references say OK, manufacturers advise avoidance (excluded in pregnancy by this app)",
+     "ar": "موضع خلاف: المراجع تقول مقبول، والشركات توصي بالتجنب (مستبعد في الحمل في هذا التطبيق)"
+    },
+    "breastfeeding": {
+     "en": "Caution: may reduce milk supply and sedate the infant",
+     "ar": "حذر: قد يقلل إدرار الحليب ويسبب نعاس الرضيع"
+    },
+    "cautions": {
+     "en": "Glaucoma, enlarged prostate (antimuscarinic effects). Causes drowsiness — warn about driving.",
+     "ar": "الزرق، تضخم البروستاتا (تأثيرات مضادة للمسكارين). يسبب النعاس — نبّه بشأن القيادة."
+    }
+   }
+  },
+  {
+   "id": "REC-900",
+   "kind": "insufficient_data",
+   "title": {
+    "en": "Answer every question",
+    "ar": "أجب عن جميع الأسئلة"
+   },
+   "text": {
+    "en": "All required questions must be answered before the app can assess the patient.",
+    "ar": "يجب الإجابة عن جميع الأسئلة المطلوبة قبل أن يتمكن التطبيق من تقييم المريض."
+   },
+   "evidence_ids": []
+  }
+ ]
+}

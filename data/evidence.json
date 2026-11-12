@@ -1,0 +1,296 @@
+{
+ "EV-001": {
+  "section": "§3 Differential diagnosis & triage matrix for acute cough",
+  "quote": "Acute Cough: Present for less than 3 weeks.",
+  "paraphrase": "BTS duration categories: acute <3 weeks, subacute 3–8 weeks, chronic >8 weeks.",
+  "certainty": "Not graded",
+  "strength": "Guideline (BTS) – as cited"
+ },
+ "EV-002": {
+  "section": "§3",
+  "quote": "cough is typically self-limiting, resolving within 3 to 4 weeks",
+  "paraphrase": "Most cough is self-limiting and resolves in 3–4 weeks; basis for reassurance advice.",
+  "certainty": "Not graded",
+  "strength": "Guideline (BTS) – as cited"
+ },
+ "EV-003": {
+  "section": "§3",
+  "quote": "these presentations must be classified and managed as productive coughs",
+  "paraphrase": "A patient who brings up no sputum but \"can feel it in the chest\" is managed as a productive (chesty) cough.",
+  "certainty": "Not graded",
+  "strength": "Not graded"
+ },
+ "EV-004": {
+  "section": "§3",
+  "quote": "Patients presenting with a non-acute cough (exceeding 3 weeks) who are not systemically unwell should be referred for further medical investigation.",
+  "paraphrase": "Non-acute cough (>3 weeks) needs referral for investigation.",
+  "certainty": "Not graded",
+  "strength": "Not graded"
+ },
+ "EV-005": {
+  "section": "§3 High-priority red-flag referral criteria",
+  "quote": "Chest pain, haemoptysis, pain on inspiration, severe dyspnoea, or prominent wheezing",
+  "paraphrase": "Chest pain, haemoptysis, pain on inspiration, severe dyspnoea or prominent wheezing → urgent same-day referral (ED or GP by severity).",
+  "certainty": "Not graded",
+  "strength": "Not graded"
+ },
+ "EV-006": {
+  "section": "§3 red-flag table",
+  "quote": "Cough duration > 3 weeks or recurring cough episodes",
+  "paraphrase": "Cough >3 weeks or recurring episodes → elective GP referral as soon as practicable.",
+  "certainty": "Not graded",
+  "strength": "Not graded"
+ },
+ "EV-007": {
+  "section": "§3 red-flag table",
+  "quote": "Persistent nocturnal cough in pediatric patients",
+  "paraphrase": "Persistent night-time cough in a child (possible uncontrolled asthma) → refer as soon as practicable.",
+  "certainty": "Not graded",
+  "strength": "Not graded"
+ },
+ "EV-008": {
+  "section": "§3 red-flag table",
+  "quote": "Unexplained anorexia or significant weight loss",
+  "paraphrase": "Unexplained anorexia or significant weight loss → refer as soon as practicable (TB, carcinoma, systemic disease).",
+  "certainty": "Not graded",
+  "strength": "Not graded"
+ },
+ "EV-009": {
+  "section": "§3 red-flag table",
+  "quote": "Debilitating symptoms in older adults",
+  "paraphrase": "Debilitating symptoms in an older adult → urgent same-day referral.",
+  "certainty": "Not graded",
+  "strength": "Not graded"
+ },
+ "EV-010": {
+  "section": "§3 Systematic decision logic for cough evaluation (flowchart)",
+  "quote": "Duration > 3 Weeks",
+  "paraphrase": "Source flowchart: >3 w → referral; productive with haemoptysis → immediate referral; mucoid/purulent → debilitating or older adult → urgent referral, mild → treat; dry sudden onset with fever/cold → viral URTI (treat); periodic → postnasal drip (treat) or allergy/asthma (refer if family history).",
+  "certainty": "Not graded",
+  "strength": "Not graded"
+ },
+ "EV-011": {
+  "section": "§2 Sputum characteristics table",
+  "quote": "Generally indicates viral infection; does not routinely require antibiotic referral.",
+  "paraphrase": "Clear/white sputum is of little consequence; yellow/green/brown is generally viral; rust → pneumococcal pneumonia; pink → pulmonary oedema; dark red → suspicious of carcinoma; a single bright-red event is non-serious and needs no referral.",
+  "certainty": "Not graded",
+  "strength": "Not graded"
+ },
+ "EV-012": {
+  "section": "§2 Sputum nature",
+  "quote": "Indicative of bronchiectasis or a localized lung abscess.",
+  "paraphrase": "Thin frothy sputum suggests left ventricular failure; offensive/foul-smelling sputum suggests bronchiectasis or lung abscess.",
+  "certainty": "Not graded",
+  "strength": "Not graded"
+ },
+ "EV-013": {
+  "section": "§3 Very unlikely causes – carcinoma of the lung",
+  "quote": "Any patient >40 years with two or more of these signs (or one sign in a smoker) requires urgent referral.",
+  "paraphrase": "Over 40: ≥2 of haemoptysis, dyspnoea, chest pain, anorexia, weight loss, fatigue — or ≥1 in a smoker — needs urgent referral.",
+  "certainty": "Not graded",
+  "strength": "Not graded"
+ },
+ "EV-014": {
+  "section": "§3 Unlikely causes – CAP",
+  "quote": "Older adults may be afebrile and present solely with confusion.",
+  "paraphrase": "Pneumonia: rapid onset, rust sputum, high fever, pleuritic pain; older adults may present only with confusion. Assessed with CRB-65 (prescriber role).",
+  "certainty": "Not graded",
+  "strength": "Not graded"
+ },
+ "EV-015": {
+  "section": "§3 Unlikely causes – COPD",
+  "quote": "Exacerbations involve acute drops in functional activity and severe dyspnoea, requiring GP referral for potential antibiotics and corticosteroids.",
+  "paraphrase": "COPD exacerbation (acute drop in activity, severe breathlessness) → GP referral.",
+  "certainty": "Not graded",
+  "strength": "Not graded"
+ },
+ "EV-016": {
+  "section": "§3 Unlikely causes – ACE-inhibitor cough",
+  "quote": "Occurs in up to 16% of patients taking ACE inhibitors.",
+  "paraphrase": "ACE-inhibitor cough: up to 16%, onset hours to >1 year, resolves 3–4 weeks after withdrawal; NSAIDs, sitagliptin, CCBs and beta-blockers are rarer causes.",
+  "certainty": "Not graded",
+  "strength": "Not graded"
+ },
+ "EV-017": {
+  "section": "§3 Most likely causes – viral URTI",
+  "quote": "Sudden onset, minimal sputum, accompanied by fever and cold symptoms (duration 7–10 days)",
+  "paraphrase": "Viral URTI: sudden onset, little sputum, fever and cold symptoms, lasts 7–10 days, cough often worse in the evening.",
+  "certainty": "Not graded",
+  "strength": "Not graded"
+ },
+ "EV-018": {
+  "section": "§3 Likely causes – UACS",
+  "quote": "Treated with antihistamines and/or decongestants.",
+  "paraphrase": "Upper airway cough syndrome: runny/blocked nose, throat clearing, itchy throat; allergic form is dry, worse at night, seasonal; treated with antihistamines and/or decongestants.",
+  "certainty": "Not graded",
+  "strength": "Not graded"
+ },
+ "EV-019": {
+  "section": "§3 Unlikely causes – asthma",
+  "quote": "Symptoms are variable, intermittent, nocturnal, and provoked by triggers (allergens, exercise, cold air).",
+  "paraphrase": "Asthma / cough-variant asthma: variable, nocturnal cough provoked by triggers.",
+  "certainty": "Not graded",
+  "strength": "Not graded"
+ },
+ "EV-020": {
+  "section": "§3 Unlikely causes – croup",
+  "quote": "Violent, severe cough with a characteristic seal-like barking quality, accompanied by inter-episodic breathlessness and stridor.",
+  "paraphrase": "Croup: young children, night-time barking cough with stridor and breathlessness. (No explicit referral directive — GAP-12.)",
+  "certainty": "Not graded",
+  "strength": "Not graded"
+ },
+ "EV-021": {
+  "section": "§6 Critical appraisal of cough therapeutics",
+  "quote": "concluding there is no high-quality evidence supporting their clinical effectiveness in acute cough",
+  "paraphrase": "Cochrane (Smith 2014): no high-quality evidence that OTC cough medicines work in acute cough; dextromethorphan is the only OTC centrally acting antitussive for dry cough (UK context).",
+  "certainty": "Low (no high-quality evidence)",
+  "strength": "Systematic review"
+ },
+ "EV-022": {
+  "section": "§6 Dextromethorphan",
+  "quote": "Two trials demonstrated significant reductions in cough frequency and effort",
+  "paraphrase": "2 of 3 adult RCTs showed fewer coughing bouts (8–10 per 30 min); third showed no benefit. Causes sedation; serotonin syndrome risk with serotonergic drugs.",
+  "certainty": "Modest / mixed (source summary)",
+  "strength": "Systematic review"
+ },
+ "EV-023": {
+  "section": "§6 Guaifenesin",
+  "quote": "its established safety profile and lack of drug interactions justify its supply for chesty coughs",
+  "paraphrase": "Trials conflict (n=239 positive; n=65 null; ER n=378 null at day 7) but safety and no interactions justify supply for chesty cough.",
+  "certainty": "Modest / mixed (source summary)",
+  "strength": "Systematic review"
+ },
+ "EV-024": {
+  "section": "§6 Antihistamines",
+  "quote": "Non-sedating second-generation antihistamines show no benefit over placebo in acute cough",
+  "paraphrase": "Diphenhydramine efficacy in acute cough is not unequivocally substantiated; non-sedating antihistamines show no benefit.",
+  "certainty": "Low / uncertain",
+  "strength": "Review"
+ },
+ "EV-025": {
+  "section": "§6 Demulcents",
+  "quote": "honey administered for up to 3 days is superior to placebo or no treatment in reducing pediatric cough duration and severity",
+  "paraphrase": "Cochrane (Oduwole 2018; 6 trials, n=899 children): honey for up to 3 days reduces cough duration and severity; demulcents are inert and soothe the pharynx.",
+  "certainty": "Moderate-to-low (per text; see CONF-01)",
+  "strength": "Systematic review"
+ },
+ "EV-026": {
+  "section": "§6 Herbal preparations",
+  "quote": "Thyme-containing remedies (e.g., Bronchostop) cannot be routinely recommended based on current clinical evidence.",
+  "paraphrase": "Herbal cough products have only very low-quality evidence; not routinely recommended.",
+  "certainty": "Very low",
+  "strength": "Not graded"
+ },
+ "EV-027": {
+  "section": "§6 Multi-ingredient combination products",
+  "quote": "Clinicians should avoid recommending multi-ingredient preparations, favoring targeted single-agent interventions instead.",
+  "paraphrase": "Avoid multi-ingredient cough products (illogical combinations, sub-therapeutic doses); use single agents.",
+  "certainty": "Not graded",
+  "strength": "Not graded"
+ },
+ "EV-028": {
+  "section": "§6 Alternative cold interventions – steam",
+  "quote": "Heated steam provides modest symptomatic comfort but carries a minor risk of nasal mucosal discomfort.",
+  "paraphrase": "Steam inhalation: conflicting evidence, modest comfort, minor nasal discomfort risk.",
+  "certainty": "Conflicting",
+  "strength": "Systematic review"
+ },
+ "EV-029": {
+  "section": "§6 Summary of therapeutic evidence",
+  "quote": "MODEST / MIXED EVIDENCE: Guaifenesin, Dextromethorphan, Benzydamine Spray.",
+  "paraphrase": "Source evidence tiers: strong — systemic analgesics, honey (paediatric cough); modest/mixed — guaifenesin, dextromethorphan; poor — oral phenylephrine etc.",
+  "certainty": "Not graded",
+  "strength": "Not graded"
+ },
+ "EV-030": {
+  "section": "§7 Master monograph: cough therapeutics",
+  "quote": "None reported,None of clinical significance,None,Pregnancy: OK Breastfeeding: OK",
+  "paraphrase": "Guaifenesin: >6 y 100 mg four times daily; >12 y/adults 200 mg four times daily; no common side effects or significant interactions; OK in pregnancy and breastfeeding.",
+  "certainty": "Not graded",
+  "strength": "Not graded"
+ },
+ "EV-031": {
+  "section": "§7 Master monograph: cough therapeutics",
+  "quote": "(Not for 12–18 yrs with breathing problems),\"Drowsiness, sedation\"",
+  "paraphrase": "Dextromethorphan: >12 y, 10 mL four times daily (strength not stated — GAP-01); not for 12–18 y with breathing problems; drowsiness; sedation potentiated by alcohol, opioids, anxiolytics, hypnotics, antidepressants; serotonin syndrome with MAOIs, SSRIs, tramadol; care in asthma; avoid 3rd trimester; breastfeeding OK short periods, monitor infant.",
+  "certainty": "Not graded",
+  "strength": "Not graded"
+ },
+ "EV-032": {
+  "section": "§7 Master monograph: cough therapeutics",
+  "quote": "\"Sedation, dry mouth, dizziness, headache, nausea, constipation\"",
+  "paraphrase": "Diphenhydramine: >6 y (dose not stated — GAP-03); sedation, dry mouth, dizziness, headache, nausea, constipation; CNS depression with alcohol, opioids, sedatives, hypnotics, TCAs; care in glaucoma and prostate enlargement; pregnancy disputed; breastfeeding may reduce supply and sedate infant.",
+  "certainty": "Not graded",
+  "strength": "Not graded"
+ },
+ "EV-033": {
+  "section": "§7 Master monograph: cough therapeutics",
+  "quote": "Simple Linctus (Demulcent),> 1 month ( 3–4 times daily),None,None,None,Pregnancy: OK Breastfeeding: OK",
+  "paraphrase": "Simple linctus: >1 month, 3–4 times daily (volume not stated — GAP-02); no side effects or interactions listed; OK in pregnancy and breastfeeding.",
+  "certainty": "Not graded",
+  "strength": "Not graded"
+ },
+ "EV-034": {
+  "section": "§7 Special populations – insulin-dependent diabetes",
+  "quote": "Select sugar-free formulations (e.g., sugar-free Robitussin guaifenesin) to avoid erratic blood glucose control.",
+  "paraphrase": "Insulin-treated patients: monitor blood glucose more often during acute illness; choose sugar-free formulations.",
+  "certainty": "Not graded",
+  "strength": "Not graded"
+ },
+ "EV-035": {
+  "section": "§7 Special populations – glaucoma & prostatic hypertrophy",
+  "quote": "Clinicians must screen for these conditions and recommend non-anticholinergic alternatives (such as simple demulcents or topical saline sprays).",
+  "paraphrase": "Sedating antihistamines can precipitate angle-closure glaucoma and urinary retention; screen and use non-anticholinergic alternatives (e.g. simple demulcents).",
+  "certainty": "Not graded",
+  "strength": "Not graded"
+ },
+ "EV-036": {
+  "section": "§7 Pregnancy & lactation protocols",
+  "quote": "Flurbiprofen lozenges and dextromethorphan must be avoided in the third trimester of pregnancy.",
+  "paraphrase": "Demulcents (simple linctus) safe throughout pregnancy and breastfeeding (preferred); dextromethorphan avoided in 3rd trimester; diphenhydramine: lactation caution (infant sedation).",
+  "certainty": "Not graded",
+  "strength": "Not graded"
+ },
+ "EV-037": {
+  "section": "§7 Critical safety warnings",
+  "quote": "Co-administration with MAOIs within 14 days of discontinuation is strictly contraindicated.",
+  "paraphrase": "Dextromethorphan + MAOIs (incl. moclobemide), SSRIs or tramadol can cause life-threatening serotonin syndrome; MAOI within 14 days is contraindicated.",
+  "certainty": "Not graded",
+  "strength": "Not graded"
+ },
+ "EV-038": {
+  "section": "§7 Critical safety warnings",
+  "quote": "Patients presenting with wheezing, shortness of breath, or bronchial tightness require immediate physical evaluation rather than non-prescription bronchodilator self-medication.",
+  "paraphrase": "Avoid OTC theophylline; wheeze, breathlessness or chest tightness need immediate physical evaluation.",
+  "certainty": "Not graded",
+  "strength": "Not graded"
+ },
+ "EV-039": {
+  "section": "§6",
+  "quote": "the MHRA mandated the complete withdrawal of pholcodine from the UK market due to anaphylaxis risks",
+  "paraphrase": "UK context: codeine cough medicines restricted to >12 y (2015); pholcodine withdrawn (2023). Not offered by the app.",
+  "certainty": "Not graded",
+  "strength": "Not graded"
+ },
+ "EV-040": {
+  "section": "§2 Demographics & risk",
+  "quote": "Primary risk factor for COPD (90% of cases) and lung carcinoma.",
+  "paraphrase": "Children have 7–10 cough episodes/year; smoking is the main risk factor for COPD and lung cancer.",
+  "certainty": "Not graded",
+  "strength": "Not graded"
+ },
+ "EV-041": {
+  "section": "§3 Very unlikely causes – heart failure",
+  "quote": "Progressive heart failure causes ankle edema and a nocturnal productive cough with thin, frothy, pink-tinged sputum.",
+  "paraphrase": "Heart failure: nocturnal productive cough with thin, frothy, pink-tinged sputum, orthopnoea, ankle oedema.",
+  "certainty": "Not graded",
+  "strength": "Not graded"
+ },
+ "EV-042": {
+  "section": "§3 Unlikely causes – asthma",
+  "quote": "pediatric prevalence is 10–15%",
+  "paraphrase": "Asthma affects 10–15% of children; cough-variant asthma may present with cough alone.",
+  "certainty": "Not graded",
+  "strength": "Not graded"
+ }
+}
