@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RAM Architecture Map</title>
+  <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+  <main>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow" id="status">Loading specification</p>
+        <h1 id="title">Architecture map</h1>
+      </div>
+      <div class="legend" aria-label="Diagram legend">
+        <span><i class="dot referral"></i>Referral</span>
+        <span><i class="dot management"></i>Management</span>
+        <span><i class="dot stage"></i>Stage</span>
+      </header>
+    </header>
+
+    <nav class="tabs" aria-label="Diagram views">
+      <button class="active" data-view="architecture" aria-selected="true">Architecture</button>
+      <button data-view="flow" aria-selected="false">Clinical flow</button>
+      <button data-view="rules" aria-selected="false">Rule map</button>
+    </nav>
+
+    <section id="architecture" class="view active" aria-label="Architecture diagram"></section>
+    <section id="flow" class="view" aria-label="Clinical flow diagram"></section>
+    <section id="rules" class="view" aria-label="Rule map"></section>
+  </main>
+  <div id="detail" class="detail" role="dialog" aria-modal="false" aria-labelledby="detail-title" hidden>
+    <button id="detail-close" class="close" aria-label="Close details">x</button>
+    <h2 id="detail-title"></h2>
+    <div id="detail-body"></div>
+  </div>
+  <script src="/assets/app.js"></script>
+</body>
+</html>
